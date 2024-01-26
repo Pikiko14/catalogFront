@@ -106,6 +106,19 @@
             class="shadow-0 bg-transparent"
             v-model:pagination="pagination"
           >
+            <template v-slot:body-cell-img="props">
+              <q-td class="text-center" style="width: 50px">
+                <q-img
+                  :src="`${apiUrl}/${props.row.default_image.path}`"
+                  color="secondary"
+                  class="text-white"
+                  style="width: 30px; height: 30px; border-radius: 5px"
+                  square
+                  size="8pt"
+                >
+                </q-img>
+              </q-td>
+            </template>
             <template v-slot:body-cell-role="props">
               <q-td class="text-center">
                 <q-chip color="secondary" class="text-white" square size="8pt">

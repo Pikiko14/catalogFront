@@ -17,6 +17,7 @@ const path = 'products';
 export const useProductsStore = defineStore('productsStore', () => {
   // data
   const totalPage = ref<number>(1);
+  const totalItems = ref<number>(1);
   const product = ref<ProductInterface>({});
   const products = ref<ProductInterface[]>([]);
 
@@ -31,6 +32,7 @@ export const useProductsStore = defineStore('productsStore', () => {
       if (response.success) {
         products.value.push(...response.data.products);
         totalPage.value = response.data.totalPages;
+        totalItems.value = response.data.totalProducts;
       }
       return response;
     } catch (error) {
@@ -151,6 +153,7 @@ export const useProductsStore = defineStore('productsStore', () => {
     product,
     products,
     totalPage,
+    totalItems,
     doGetProduct,
     clearProduct,
     doSaveProduct,

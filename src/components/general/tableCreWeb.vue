@@ -106,6 +106,13 @@
             class="shadow-0 bg-transparent"
             v-model:pagination="pagination"
           >
+            <template v-slot:body-cell-role="props">
+              <q-td class="text-center">
+                <q-chip color="secondary" class="text-white" square size="8pt">
+                  {{ roles[props.row.role] }}
+                </q-chip>
+              </q-td>
+            </template>
             <template v-slot:body-cell-options="props">
               <q-td class="text-center">
                 <q-btn
@@ -148,6 +155,7 @@
 <script lang="ts">
 import { Utils } from 'src/utils/utils';
 import { defineComponent, onBeforeMount, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
 export default defineComponent({
@@ -198,6 +206,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // data
+    const { t } = useI18n();
     const route = useRoute();
     const search = ref<string>('');
     const utils = new Utils('users');
@@ -207,6 +216,10 @@ export default defineComponent({
       rowsPerPage: 10,
       rowsNumber: 1,
     });
+    const roles: any = {
+      admin: t('admin'),
+      employe: t('employe'),
+    };
 
     // atch
     watch(
@@ -271,6 +284,7 @@ export default defineComponent({
 
     // reuturn statement
     return {
+      roles,
       utils,
       search,
       apiUrl,

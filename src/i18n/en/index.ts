@@ -160,4 +160,6 @@ export default {
   rol: 'Role',
   options: 'Options',
   totalProduct: 'Total products',
+  employe: 'Employe',
+  admin: 'Administrador',
 };

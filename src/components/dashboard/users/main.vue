@@ -118,7 +118,7 @@ export default defineComponent({
         name: 'role',
         required: true,
         label: t('rol'),
-        align: 'left',
+        align: 'center',
         field: (row: User) => row.role,
         format: (val: string) => `${val}`,
         sortable: false,

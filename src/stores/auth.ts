@@ -123,6 +123,9 @@ export const useAuthStore = defineStore('authStore', () => {
         true,
         true
       )) as ResponseObj;
+      if (response.success) {
+        profile.value = response.data;
+      }
       return response;
     } catch (error) {
       console.log(error);

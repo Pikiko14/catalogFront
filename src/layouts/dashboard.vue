@@ -3,15 +3,15 @@
     <!-- Be sure to play with the Layout demo on docs -->
 
     <!-- (Optional) The Header -->
-    <q-header class="q-pa-lg" :class="headerClass">
+    <q-header class="q-pa-sm" :class="headerClass">
       <q-toolbar>
         <q-btn
-          v-if="$q.screen.lt.lg"
+          v-if="$q.screen.lt.xl"
           flat
           round
           dense
           icon="menu"
-          color="primary"
+          color="secondary"
           @click="leftDrawer = !leftDrawer"
         />
         <q-toolbar-title class="text-right text-black weight-600 font-12">
@@ -33,10 +33,10 @@
       side="left"
       fit
       :mini="miniState"
-      :width="120"
+      :width="200"
     >
       <!-- QScrollArea is optional -->
-      <q-scroll-area class="fit q-pa-sm bg-info">
+      <q-scroll-area class="full-height bg-secondary">
         <!-- Content here -->
         <ListAdmin />
       </q-scroll-area>
@@ -44,7 +44,7 @@
 
     <q-page-container>
       <!-- This is where pages get injected -->
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </q-page-container>
   </q-layout>
 </template>
@@ -70,8 +70,7 @@ export default defineComponent({
     const leftDrawer = ref(true);
     const miniState = ref<boolean>(false);
     const authStore = useAuthStore();
-    const headerClass = ref('bg-transparent');
-    const scrollPosition = ref();
+    const headerClass = ref('bg-white');
 
     // computed
     const user = computed(() => {
@@ -79,24 +78,8 @@ export default defineComponent({
     });
 
     // methods
-    const handleScroll = () => {
-      scrollPosition.value = window.scrollY;
-      // Cambiar el color del encabezado al hacer scroll
-      if (scrollPosition.value > 20) {
-        headerClass.value = 'bg-header';
-      } else {
-        headerClass.value = 'bg-transparent';
-      }
-    };
 
     // hook
-    onBeforeMount(() => {
-      window.addEventListener('scroll', handleScroll);
-    });
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
 
     return {
       leftDrawer,

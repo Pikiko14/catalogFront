@@ -1,4 +1,8 @@
 // app global css in SCSS form
+main {
+  padding-top: 2rem;
+}
+
 .round-10 {
   border-radius: 10px !important;
   -webkit-border-radius: 10px !important;
@@ -182,10 +186,9 @@ label {
 }
 
 .admin .q-drawer .q-scrollarea__content {
-  align-items: center;
-  display: flex;
   width: 100%;
-  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .admin .custom-aside {
@@ -202,26 +205,71 @@ label {
 }
 
 .item-admin {
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  width: 45px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  width: 100%;
   height: 40px;
 }
 
 .relative {
   position: relative;
 }
+.drawer-list {
+  height: 100vh;
+}
+
+.drawer-list .item-list {
+  color: white;
+  font-weight: 500;
+  margin-left: -10px;
+}
+
+.drawer-list .profile-card {
+  height: 140px;
+  width: 100%;
+  background: $primary;
+  color: white;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.drawer-list .profile-card section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+}
+
+.drawer-list .profile-card section .q-avatar {
+  position: absolute;
+  top: -30px;
+}
+
+.drawer-list .profile-card section .q-avatar img {
+  border: 3px solid white;
+}
 
 .active {
+  width: 100%;
+  color: white !important;
+  font-weight: 600;
   background-color: $primary;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 
 .statisticsCard {
@@ -266,7 +314,7 @@ iframe {
 }
 
 .bg-header {
-  background-color: #dfdfe8;
+  background-color: white;
 }
 
 .overflow-page {
@@ -572,6 +620,11 @@ iframe {
   -webkit-animation: zoomIn 4s;
 }
 
+.name-label {
+  font-weight: 500;
+  font-size: 11pt;
+}
+
 //*****MEDIA QUERIES*****//
 @media (max-width: 1300px) {
   .plan-card {
@@ -617,13 +670,14 @@ iframe {
   }
 
   .item-admin {
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    width: 50px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    width: 100% !important;
     height: 50px;
+    color: white !important;
   }
 
   .brand-data .q-card {

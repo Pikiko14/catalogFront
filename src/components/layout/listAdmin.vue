@@ -1,187 +1,135 @@
 <template>
-  <section class="custom-aside shadow-1">
-    <q-list class="relative">
-      <q-item
-        clickable
-        to="/dashboard"
-        class="item-admin q-pa-none q-mt-md"
-        :class="{ active: route.path === '/dashboard' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="16pt"
-              name="img:/images/home.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
+  <q-list class="relative drawer-list">
+    <q-item>
+      <q-item-section>
+        <q-img src="/images/logo.webp" alt="logo webcrew"></q-img>
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      to="/dashboard"
+      class="item-admin q-py-none q-px-sm q-mt-md"
+      :class="{ active: route.path === '/dashboard' }"
+    >
+      <q-item-section avatar class="q-pa-none">
+        <q-icon size="16pt" name="img:/images/home.svg" color="white"></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label class="font-12 item-list">
           {{ $t('home') }}
-        </q-tooltip>
-      </q-item>
-      <q-item
-        clickable
-        to="/dashboard/catalogs?page=1&perPage=12"
-        class="item-admin q-pa-none q-mt-md"
-        v-if="utils.validatePermission('list-catalogues')"
-        :class="{ active: route.path === '/dashboard/catalogs' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="19pt"
-              name="img:/images/catalog.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      to="/dashboard/catalogs?page=1&perPage=12"
+      class="item-admin q-py-none q-px-sm q-mt-md"
+      v-if="utils.validatePermission('list-catalogues')"
+      :class="{ active: route.path === '/dashboard/catalogs' }"
+    >
+      <q-item-section avatar class="q-pa-none">
+        <q-icon
+          size="17pt"
+          name="img:/images/catalog.svg"
+          color="white"
+        ></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label class="font-12 item-list">
           {{ $t('catalog') }}
-        </q-tooltip>
-      </q-item>
-      <q-item
-        clickable
-        to="/dashboard/products?page=1&perPage=12"
-        class="item-admin q-pa-none q-mt-md"
-        v-if="utils.validatePermission('list-products')"
-        :class="{ active: route.path === '/dashboard/products' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="22pt"
-              name="img:/images/inventory.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      to="/dashboard/products?page=1&perPage=12"
+      class="item-admin q-py-none q-px-sm q-mt-md"
+      v-if="utils.validatePermission('list-products')"
+      :class="{ active: route.path === '/dashboard/products' }"
+    >
+      <q-item-section avatar class="q-pa-none">
+        <q-icon
+          size="20pt"
+          name="img:/images/inventory.svg"
+          color="white"
+        ></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label class="font-12 item-list">
           {{ $t('product') }}
-        </q-tooltip>
-      </q-item>
-      <q-item
-        clickable
-        to="/dashboard/categories?page=1&perPage=12"
-        class="item-admin q-pa-none q-mt-md"
-        v-if="utils.validatePermission('list-categories')"
-        :class="{ active: route.path === '/dashboard/categories' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="24pt"
-              name="img:/images/category.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      clickable
+      to="/dashboard/categories?page=1&perPage=12"
+      class="item-admin q-py-none q-px-sm q-mt-md"
+      v-if="utils.validatePermission('list-categories')"
+      :class="{ active: route.path === '/dashboard/categories' }"
+    >
+      <q-item-section avatar class="q-pa-none">
+        <q-icon
+          size="21pt"
+          name="img:/images/category.svg"
+          color="white"
+        ></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label class="font-12 item-list">
           {{ $t('category') }}
-        </q-tooltip>
-      </q-item>
-      <q-item
-        v-if="utils.validatePermission('list-user')"
-        clickable
-        to="/dashboard/users?page=1&perPage=12"
-        class="item-admin q-pa-none q-mt-md"
-        :class="{ active: route.path === '/dashboard/users' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="21pt"
-              name="img:/images/users.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      v-if="utils.validatePermission('list-user')"
+      clickable
+      to="/dashboard/users?page=1&perPage=12"
+      class="item-admin q-py-none q-px-sm q-mt-md"
+      :class="{ active: route.path === '/dashboard/users' }"
+    >
+      <q-item-section avatar class="q-pa-none">
+        <q-icon size="19pt" name="img:/images/users.svg" color="white"></q-icon>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label class="font-12 item-list">
           {{ $t('users') }}
-        </q-tooltip>
-      </q-item>
-      <q-item
-        v-if="utils.validatePermission('list-user')"
-        clickable
-        to="/dashboard/profile"
-        class="item-admin q-pa-none q-mt-md"
-        :class="{ active: route.path === '/dashboard/profile' }"
-      >
-        <q-item-section class="q-pa-none">
-          <q-avatar style="margin-left: -1px">
-            <q-icon
-              size="24pt"
-              name="img:/images/person.svg"
-              color="white"
-            ></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
-          {{ $t('profile') }}
-        </q-tooltip>
-      </q-item>
-      <q-separator
-        color="white"
-        class="absolute-bottom separator"
-      ></q-separator>
-      <q-item
-        @click="doLogout"
-        clickable
-        class="item-admin q-px-none q-mb-md absolute-bottom"
-      >
-        <q-item-section>
-          <q-avatar>
-            <q-icon name="img:/images/logout.svg" color="white"></q-icon>
-          </q-avatar>
-        </q-item-section>
-        <q-tooltip
-          class="bg-secondary"
-          anchor="center right"
-          self="center left"
-          :offset="[20, 0]"
-        >
-          {{ $t('signOut') }}
-        </q-tooltip>
-      </q-item>
-    </q-list>
-  </section>
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      class="item-admin q-px-none q-mb-md absolute-bottom profile-card shadow-1"
+    >
+      <section>
+        <q-avatar color="white" v-if="profile.user_id">
+          <img
+            :src="`${url}/${profile.profile_pictury}`"
+            spinner-color="secondary"
+            class="profile-image"
+          />
+        </q-avatar>
+        <span class="name-label">
+          {{ user.name }}
+        </span>
+        <span class="q-mb-sm"> {{ $t('user') }} </span>
+        <q-btn
+          unelevated
+          color="white"
+          to="/dashboard/profile"
+          class="round-10 full-width absolute-bottom"
+          :label="$t('profile')"
+          no-caps
+          text-color="black"
+        ></q-btn>
+      </section>
+    </q-item>
+  </q-list>
 </template>
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts">
 import { useQuasar } from 'quasar';
 import { useAuthStore } from 'src/stores/auth';
 import { Utils } from 'src/utils/utils';
-import { defineComponent } from 'vue';
+import { computed, defineComponent, onBeforeMount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 
@@ -191,11 +139,22 @@ export default defineComponent({
   setup() {
     // data
     const q = useQuasar();
-    const router = useRouter();
-    const authStore = useAuthStore();
     const { t } = useI18n();
     const route = useRoute();
+    const router = useRouter();
+    const store = useAuthStore();
+    const authStore = useAuthStore();
     const utils = new Utils('aside');
+    const url = `${process.env.API_URL}/profile`;
+
+    // computed
+    const user = computed(() => {
+      return store.user;
+    });
+
+    const profile = computed(() => {
+      return store.profile;
+    });
 
     // methods
     const doLogout = () => {
@@ -218,12 +177,29 @@ export default defineComponent({
         });
     };
 
+    const listProfile = async () => {
+      try {
+        const userId = user.value.parent ? user.value.parent : user.value._id;
+        await store.listProfile(userId);
+      } catch (error) {}
+    };
+
+    // hook
+    onBeforeMount(async () => {
+      if (!profile.value.user_id) {
+        await listProfile();
+      }
+    });
+
     // return data
     return {
-      confirLogout,
-      doLogout,
+      url,
+      user,
       route,
       utils,
+      profile,
+      doLogout,
+      confirLogout,
     };
   },
 });

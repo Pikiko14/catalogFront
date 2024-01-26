@@ -104,7 +104,38 @@
             :rows="data"
             :columns="rows"
             v-model:pagination="pagination"
-          ></q-table>
+          >
+            <template v-slot:body-cell-options="props">
+              <q-td class="text-center">
+                <q-btn
+                  icon="edit"
+                  flat
+                  dense
+                  round
+                  size="9pt"
+                  color="secondary"
+                  @click="doEditData(props.row)"
+                >
+                  <q-tooltip class="bg-secondary">
+                    {{ $t('edit') }}
+                  </q-tooltip>
+                </q-btn>
+                <q-btn
+                  flat
+                  dense
+                  round
+                  size="9pt"
+                  icon="delete"
+                  color="primary"
+                  @click="doDeleteData(props.row)"
+                >
+                  <q-tooltip class="bg-primary">
+                    {{ $t('delete') }}
+                  </q-tooltip>
+                </q-btn>
+              </q-td>
+            </template>
+          </q-table>
         </q-card-section>
       </q-card>
     </div>
@@ -175,7 +206,6 @@ export default defineComponent({
       rowsPerPage: 10,
       rowsNumber: 1,
     });
-    const { totalRows } = props;
 
     // atch
     watch(
@@ -198,6 +228,15 @@ export default defineComponent({
 
     const showImportModal = () => {
       emit('show-import-modal');
+    };
+
+    const doEditData = (row: any) => {
+      emit('do-edit', row);
+    };
+
+    const doDeleteData = (row: any) => {
+      const index = props.data.findIndex((data: any) => data._id === row._id);
+      emit('do-delete', row._id, index);
     };
 
     // life cicle
@@ -223,6 +262,8 @@ export default defineComponent({
       search,
       apiUrl,
       pagination,
+      doEditData,
+      doDeleteData,
       doSearchUser,
       openModalForm,
       showImportModal,

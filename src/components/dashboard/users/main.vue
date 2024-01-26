@@ -8,8 +8,10 @@
         :totalRows="totalUsers"
         :title="$t('usersLabel')"
         :permission="'create-user'"
-        @open-modal="openModalForm"
         @do-search="doSearch"
+        @do-edit="doEditUser"
+        @do-delete="doDeleteUser"
+        @open-modal="openModalForm"
       />
     </div>
 
@@ -52,7 +54,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { PaginationInterface } from 'src/interfaces/Api';
+import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
 import { useUsersStore } from 'src/stores/users';
 import {
   defineComponent,
@@ -66,6 +68,8 @@ import { User } from 'src/interfaces/UserInterface';
 import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import FormUserVue from './partials/formUser.vue';
 import { useI18n } from 'vue-i18n';
+import { useQuasar } from 'quasar';
+import { notification } from 'src/boot/notification';
 
 export default defineComponent({
   name: 'UserMainComponent',
@@ -75,6 +79,7 @@ export default defineComponent({
   },
   setup() {
     // data
+    const q = useQuasar();
     const { t } = useI18n();
     const route = useRoute();
     const page = ref<any>(1);
@@ -223,6 +228,39 @@ export default defineComponent({
       modalForm.value = !modalForm.value;
     };
 
+    const doEditUser = (row: User) => {
+      delete row.password;
+      user.value = JSON.parse(JSON.stringify(row));
+      openModalForm();
+    };
+
+    const doDeleteUser = (id: string, idx: number) => {
+      q.dialog({
+        dark: false,
+        title: t('delete'),
+        message: t('deleteUserLabel'),
+        cancel: true,
+        persistent: true,
+      }).onOk(async () => {
+        await confirmDeleteuser(id, idx);
+      });
+    };
+
+    const confirmDeleteuser = async (
+      id: string | undefined,
+      idx: number
+    ): Promise<void> => {
+      try {
+        const response: ResponseObj = (await usersStore.doDeleteUsers(
+          id,
+          idx
+        )) as ResponseObj;
+        if (response.success) {
+          notification('positive', response.message, 'primary');
+        }
+      } catch (error) {}
+    };
+
     // life cycle
     onBeforeMount(async () => {
       await listUsers();
@@ -247,6 +285,8 @@ export default defineComponent({
       loadMinusData,
       openModalForm,
       totalUsers,
+      doEditUser,
+      doDeleteUser,
     };
   },
 });

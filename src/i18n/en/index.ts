@@ -159,4 +159,5 @@ export default {
     'Remember to save the changes in the top right corner to finish',
   rol: 'Role',
   options: 'Options',
+  totalProduct: 'Total products',
 };

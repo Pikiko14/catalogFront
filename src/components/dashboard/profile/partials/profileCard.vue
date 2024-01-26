@@ -1,5 +1,5 @@
 <template>
-  <q-card class="round-10 profile-card shadow-1">
+  <q-card class="round-10 profile-card shadow-0">
     <q-card-section class="text-center">
       <q-img
         :src="`${

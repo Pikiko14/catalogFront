@@ -262,7 +262,7 @@ export default defineComponent({
       } catch (error) {}
     };
 
-    const doPaginationUsers = async (pagination: any) => {
+    const doPaginationUsers = (pagination: any) => {
       const search = route.query.search ? route.query.search : '';
       router.push({
         name: 'users',

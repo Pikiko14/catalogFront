@@ -1,6 +1,6 @@
 <template>
   <q-card class="round-10 categories-card-form">
-    <q-card-section class="title text-secondary">
+    <q-card-section class="title text-primary">
       <span v-if="!category._id">{{ $t('addCategoryLabel') }}</span>
       <span v-else>{{ $t('updateCategoryLabel') }}</span>
       <q-btn

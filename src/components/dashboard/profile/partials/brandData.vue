@@ -1,7 +1,7 @@
 <template>
   <section class="brand-data">
     <q-form @submit="doSaveProfile">
-      <q-card class="round-10">
+      <q-card class="round-10 shadow-0">
         <q-card-section>
           <span class="text-h6 text-bold text-secondary">
             {{ $t('brandData') }}
@@ -30,7 +30,7 @@
             round
             class="float-right"
           >
-            <q-tooltip :class="!enableEdit ? 'bg-secondary' : 'bg-red'">
+            <q-tooltip :class="!enableEdit ? 'bg-primary' : 'bg-red'">
               {{ !enableEdit ? $t('edit') : $t('close') }}
             </q-tooltip>
           </q-btn>

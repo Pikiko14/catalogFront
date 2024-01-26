@@ -1,47 +1,30 @@
 <template>
   <section class="row q-px-sm">
+    <!--table section-->
     <div class="col-12">
-      <GridCard
-        :title="$t('category')"
-        :loading="loading"
+      <TableCreWeb
+        :rows="rowsTable"
         :data="categories"
-        :permission="'create-categories'"
+        @do-edit="showData"
         @do-search="doSearch"
-        @show-data="showData"
-        @delete-data="deleteData"
-        @open-modal-form="openFormModal"
+        @do-delete="deleteData"
+        :title="$t('category')"
+        :totalRows="totalItems"
+        @open-modal="openFormModal"
+        :permission="'create-categories'"
+        @do-pagination="doPaginationCategories"
       />
     </div>
+    <!--table section end-->
+
+    <!--no data section-->
     <div class="col-12 no-pages" v-if="categories.length === 0">
       <q-img src="/images/no-content.png" width="320px"></q-img>
       <p>{{ $t('dontHaveCategoires') }}.</p>
     </div>
-    <div class="col-12 q-mt-xl text-center" v-if="totalPage > 1">
-      <q-btn
-        rounded
-        color="secondary"
-        :label="$q.screen.gt.sm ? $t('back') : ''"
-        :disabled="parseInt(page) === 1"
-        @click="loadMinusData"
-        icon="arrow_back_ios"
-        unelevated
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-mr-md"
-        no-caps
-      ></q-btn>
-      <q-btn
-        rounded
-        color="secondary"
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-ml-md"
-        :label="$q.screen.gt.sm ? $t('next') : ''"
-        icon-right="arrow_forward_ios"
-        :disabled="parseInt(page) === totalPage"
-        @click="loadMoreData"
-        unelevated
-        no-caps
-      ></q-btn>
-    </div>
+    <!--end no data section-->
+
+    <!--dialog form category-->
     <q-dialog v-model="modalForm" @before-hide="clearCategory">
       <FormCategories
         :idx="idx"
@@ -49,6 +32,7 @@
         @close-modal="openFormModal"
       />
     </q-dialog>
+    <!--End dialog form-->
   </section>
 </template>
 
@@ -64,7 +48,7 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import GridCard from 'src/components/general/gridCard.vue';
+import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import FormCategories from './partials/form.vue';
 import { useCategoriesStore } from 'src/stores/categories';
 import { CategoryInterface } from 'src/interfaces/categories';
@@ -75,11 +59,12 @@ import { notification } from 'src/boot/notification';
 export default defineComponent({
   name: 'CategoriesMainComponents',
   components: {
-    GridCard,
+    TableCreWeb,
     FormCategories,
   },
   setup() {
     // data
+    const idx = ref();
     const q = useQuasar();
     const { t } = useI18n();
     const page = ref<any>(1);
@@ -91,7 +76,33 @@ export default defineComponent({
     const category = ref<CategoryInterface>({
       name: '',
     });
-    const idx = ref<number>(0);
+    const rowsTable = [
+      {
+        name: 'name',
+        required: true,
+        label: t('name'),
+        align: 'left',
+        field: (row: CategoryInterface) => row.name,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'totalProduct',
+        required: true,
+        label: t('totalProduct'),
+        align: 'center',
+        field: () => 0,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'options',
+        required: true,
+        label: t('options'),
+        align: 'center',
+        sortable: false,
+      },
+    ];
 
     // computed
     const categories = computed(() => {
@@ -100,6 +111,10 @@ export default defineComponent({
 
     const totalPage = computed(() => {
       return store.totalPage;
+    });
+
+    const totalItems = computed(() => {
+      return store.totalItems;
     });
 
     // methods
@@ -174,8 +189,9 @@ export default defineComponent({
     };
 
     const showData = async (data: any) => {
-      idx.value = data.idx;
-      category.value = data.data;
+      const index = getIndex(data._id);
+      idx.value = index;
+      category.value = JSON.parse(JSON.stringify(data));
       openFormModal();
     };
 
@@ -183,22 +199,28 @@ export default defineComponent({
       modalForm.value = !modalForm.value;
     };
 
-    const clearCategory = (data: any) => {
+    const clearCategory = () => {
       category.value = {
         name: '',
       };
     };
 
-    const deleteData = (data: any) => {
-      const { id, idx } = data;
+    const deleteData = (id: string) => {
+      const idx = getIndex(id);
       q.dialog({
         dark: false,
-        title: t('delete'),
-        message: t('deleteUserLabel'),
         cancel: true,
         persistent: true,
+        title: t('delete'),
+        message: t('deleteCategoryLabel'),
       }).onOk(async () => {
         await confirmDeleteCategories(id, idx);
+      });
+    };
+
+    const getIndex = (id: string) => {
+      return categories.value.findIndex((data: CategoryInterface) => {
+        return data._id === id;
       });
     };
 
@@ -209,6 +231,18 @@ export default defineComponent({
           notification('positive', response?.message, 'primary');
         }
       } catch (error) {}
+    };
+
+    const doPaginationCategories = (pagination: any) => {
+      const search = route.query.search ? route.query.search : '';
+      router.push({
+        name: 'categories',
+        query: {
+          page: pagination.page || 1,
+          perPage: pagination.rowsPerPage || 12,
+          search,
+        },
+      });
     };
 
     // life cycle
@@ -223,12 +257,14 @@ export default defineComponent({
     // return data
     return {
       idx,
+      rowsTable,
       categories,
       loading,
       totalPage,
       page,
       modalForm,
       category,
+      totalItems,
       doSearch,
       showData,
       loadMoreData,
@@ -236,6 +272,7 @@ export default defineComponent({
       openFormModal,
       clearCategory,
       deleteData,
+      doPaginationCategories,
     };
   },
 });

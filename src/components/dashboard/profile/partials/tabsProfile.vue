@@ -1,5 +1,5 @@
 <template>
-  <q-card class="round-10 shadow-1 tab-card q-mb-lg">
+  <q-card class="round-10 shadow-0 tab-card q-mb-lg">
     <q-card-section>
       <q-tabs
         v-model="tab"

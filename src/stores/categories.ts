@@ -13,6 +13,7 @@ const path = 'categories';
 export const useCategoriesStore = defineStore('categoriesStore', () => {
   // data
   const totalPage = ref<number>(1);
+  const totalItems = ref<number>(1);
   const categories = ref<CategoryInterface[]>([]);
 
   // methods
@@ -25,6 +26,7 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
       )) as ResponseObj;
       if (response.success) {
         categories.value.push(response.data);
+        totalItems.value++;
       }
       return response;
     } catch (error) {
@@ -41,6 +43,7 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
       )) as ResponseObj;
       if (response.success) {
         totalPage.value = response.data.totalPages;
+        totalItems.value = response.data.totalCategories;
         categories.value.push(...response.data.categories);
       }
       return response;
@@ -79,6 +82,7 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
       )) as ResponseObj;
       if (response.success) {
         if (categories.value[idx]) {
+          totalItems.value--;
           categories.value.splice(idx, 1);
         }
       }
@@ -92,10 +96,11 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
   return {
     totalPage,
     categories,
+    totalItems,
     saveCategory,
-    listCategories,
-    clearCategories,
     updateCategory,
     deleteCategory,
+    listCategories,
+    clearCategories,
   };
 });

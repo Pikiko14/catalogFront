@@ -22,7 +22,7 @@
             </q-tooltip>
           </q-btn>
           <q-btn
-            :color="!enableEdit ? 'secondary' : 'red'"
+            :color="!enableEdit ? 'primary' : 'red'"
             :icon="!enableEdit ? 'edit' : 'close'"
             flat
             dense

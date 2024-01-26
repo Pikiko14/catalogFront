@@ -308,7 +308,7 @@ export default defineComponent({
           subscription.value._id
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           store.disableSubscription();
         }
       } catch (error) {

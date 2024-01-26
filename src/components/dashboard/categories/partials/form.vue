@@ -123,7 +123,7 @@ export default defineComponent({
           category.value = {
             name: '',
           };
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('close-modal');
         }
       } catch (error) {
@@ -142,7 +142,7 @@ export default defineComponent({
           category.value = {
             name: '',
           };
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('close-modal');
         }
       } catch (error) {

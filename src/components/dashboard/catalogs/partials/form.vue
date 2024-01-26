@@ -309,7 +309,7 @@ export default defineComponent({
           formData
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('close-form');
         }
       } catch (error) {
@@ -330,7 +330,7 @@ export default defineComponent({
           catalog.value._id as string
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('close-form');
         }
       } catch (error) {

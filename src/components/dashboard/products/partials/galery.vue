@@ -38,7 +38,7 @@ export default defineComponent({
       try {
         const response = await store.setDefaultImage(media, product.value._id);
         if (response?.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('close-modal');
         }
       } catch (error) {}

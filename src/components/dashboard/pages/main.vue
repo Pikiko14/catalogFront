@@ -256,7 +256,7 @@ export default defineComponent({
           const response = await store.deletePage(id);
           if (response?.success) {
             pages.value.splice(index, 1);
-            notification('positive', response.message, 'secondary');
+            notification('positive', response.message, 'primary');
           }
         } catch (error) {}
       }

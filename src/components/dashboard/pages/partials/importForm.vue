@@ -92,7 +92,7 @@ export default defineComponent({
       try {
         const response = (await store.doImportPages(data)) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           formData.value = {
             file: null,
             catalogId: route.params.catalogId as string,

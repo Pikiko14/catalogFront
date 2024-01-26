@@ -272,7 +272,7 @@ export default defineComponent({
           idx
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
         }
       } catch (error) {}
     };

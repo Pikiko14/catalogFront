@@ -217,7 +217,7 @@ export default defineComponent({
       try {
         const response = (await store.doDeleteProduct(id)) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
         }
       } catch (error) {}
     };

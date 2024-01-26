@@ -205,7 +205,7 @@ export default defineComponent({
           file.value = null;
           cropImgUrl.value = null;
           cropImg.value = false;
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
         }
       } catch (error) {}
     };

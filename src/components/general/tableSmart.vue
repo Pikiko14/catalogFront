@@ -165,7 +165,7 @@
                   <q-item clickable @click="doActivateCatalog(item._id)">
                     <q-item-section avatar>
                       <q-icon
-                        :color="item.is_active ? 'red' : 'secondary'"
+                        :color="item.is_active ? 'red' : 'primary'"
                         :name="item.is_active ? 'toggle_off' : 'toggle_on'"
                       ></q-icon>
                     </q-item-section>

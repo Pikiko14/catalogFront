@@ -170,7 +170,7 @@ export default defineComponent({
           id
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
         }
       } catch (error) {}
     };
@@ -234,7 +234,7 @@ export default defineComponent({
       try {
         const data = await catalogsStore.activateCatalog(id);
         if (data && data.success) {
-          notification('positive', data.message, 'secondary');
+          notification('positive', data.message, 'primary');
           const index = catalogues.value.findIndex(
             (item: any) => item._id === id
           );

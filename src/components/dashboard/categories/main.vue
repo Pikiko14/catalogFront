@@ -206,7 +206,7 @@ export default defineComponent({
       try {
         const response = await store.deleteCategory(id, idx);
         if (response?.success) {
-          notification('positive', response?.message, 'secondary');
+          notification('positive', response?.message, 'primary');
         }
       } catch (error) {}
     };

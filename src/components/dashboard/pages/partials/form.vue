@@ -209,7 +209,7 @@ export default defineComponent({
       try {
         const response = await store.doSavePage(formData);
         if (response && response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           emit('push-page', response.data);
           emit('close-modal-import');
         }

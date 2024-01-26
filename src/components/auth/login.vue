@@ -268,7 +268,7 @@ export default defineComponent({
       try {
         const data = await store.doLogin(loginData.value);
         if (data?.success) {
-          notification('positive', data ? data.message : '', 'secondary');
+          notification('positive', data ? data.message : '', 'primary');
           loginData.value = {
             username: '',
             password: '',
@@ -289,7 +289,7 @@ export default defineComponent({
       try {
         const data = await store.doSignUp(registerData.value);
         if (data?.success) {
-          notification('positive', data ? data.message : '', 'secondary');
+          notification('positive', data ? data.message : '', 'primary');
           registerData.value = {
             username: '',
             password: '',

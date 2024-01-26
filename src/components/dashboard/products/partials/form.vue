@@ -194,7 +194,7 @@ export default defineComponent({
             categories: [],
             variants: [],
           };
-          notification('positive', response?.message, 'secondary');
+          notification('positive', response?.message, 'primary');
           emit('close-modal');
         }
       } catch (error) {
@@ -220,7 +220,7 @@ export default defineComponent({
             categories: [],
             variants: [],
           };
-          notification('positive', response?.message, 'secondary');
+          notification('positive', response?.message, 'primary');
           emit('close-modal');
         }
       } catch (error) {

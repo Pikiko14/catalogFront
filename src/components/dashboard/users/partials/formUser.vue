@@ -282,7 +282,7 @@ export default defineComponent({
           user.value
         )) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           user.value = {
             username: '',
             name: '',
@@ -307,7 +307,7 @@ export default defineComponent({
       try {
         const response = (await userStore.doUpdateUser(user)) as ResponseObj;
         if (response.success) {
-          notification('positive', response.message, 'secondary');
+          notification('positive', response.message, 'primary');
           formRef.value.reset();
           emit('close-modal');
         }

@@ -98,7 +98,7 @@ export default defineComponent({
         const response = await store.doSaveBrandData(params);
         if (response?.success) {
           brandDataRef.value.enableEdit = false;
-          notification('positive', response?.message, 'secondary');
+          notification('positive', response?.message, 'primary');
         }
       } catch (error) {
       } finally {

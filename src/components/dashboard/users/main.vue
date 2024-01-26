@@ -12,6 +12,7 @@
         @do-edit="doEditUser"
         @do-delete="doDeleteUser"
         @open-modal="openModalForm"
+        @do-pagination="doPaginationUsers"
       />
     </div>
 
@@ -261,6 +262,18 @@ export default defineComponent({
       } catch (error) {}
     };
 
+    const doPaginationUsers = async (pagination: any) => {
+      const search = route.query.search ? route.query.search : '';
+      router.push({
+        name: 'users',
+        query: {
+          page: pagination.page || 1,
+          perPage: pagination.rowsPerPage || 12,
+          search,
+        },
+      });
+    };
+
     // life cycle
     onBeforeMount(async () => {
       await listUsers();
@@ -287,6 +300,7 @@ export default defineComponent({
       totalUsers,
       doEditUser,
       doDeleteUser,
+      doPaginationUsers,
     };
   },
 });

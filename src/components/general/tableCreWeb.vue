@@ -100,9 +100,10 @@
         <q-card-section>
           <q-table
             flat
-            class="shadow-0 bg-transparent"
             :rows="data"
             :columns="rows"
+            @request="onRequest"
+            class="shadow-0 bg-transparent"
             v-model:pagination="pagination"
           >
             <template v-slot:body-cell-options="props">
@@ -239,20 +240,32 @@ export default defineComponent({
       emit('do-delete', row._id, index);
     };
 
+    const onRequest = (event: any) => {
+      const { pagination } = event;
+      emit('do-pagination', pagination);
+    };
+
     // life cicle
     onBeforeMount(() => {
+      // search query params
       if (route.query.search) {
         search.value = route.query.search as string;
       }
+      // search query page
       if (route.query.page) {
         pagination.value.page = route.query.page
           ? parseInt(route.query.page as string)
           : 1;
       }
+      // search query per page
       if (route.query.perPage) {
         pagination.value.rowsPerPage = route.query.perPage
           ? parseInt(route.query.perPage as string)
           : 10;
+      }
+      // totalRows validation
+      if (props.totalRows) {
+        pagination.value.rowsNumber = props.totalRows;
       }
     });
 
@@ -261,6 +274,7 @@ export default defineComponent({
       utils,
       search,
       apiUrl,
+      onRequest,
       pagination,
       doEditData,
       doDeleteData,

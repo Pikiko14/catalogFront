@@ -1,43 +1,51 @@
 <template>
   <section class="row q-px-sm">
     <div class="col-12">
-      <TableUser
+      <TableCreWeb
+        :data="users"
+        :rows="rowsTable"
+        :showSearch="true"
+        :totalRows="totalUsers"
         :title="$t('usersLabel')"
-        :loading="loading"
-        :users="users"
+        :permission="'create-user'"
+        @open-modal="openModalForm"
         @do-search="doSearch"
       />
     </div>
+
+    <!--no content image-->
     <div class="col-12 no-pages" v-if="users.length === 0">
       <q-img src="/images/no-content.png" width="320px"></q-img>
       <p>{{ $t('dontHaveUsers') }}.</p>
     </div>
-    <div class="col-12 q-mt-xl text-center" v-if="totalPage > 1">
-      <q-btn
-        rounded
-        color="secondary"
-        :label="$q.screen.gt.sm ? $t('back') : ''"
-        :disabled="parseInt(page) === 1"
-        @click="loadMinusData"
-        icon="arrow_back_ios"
-        unelevated
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-mr-md"
-        no-caps
-      ></q-btn>
-      <q-btn
-        rounded
-        color="secondary"
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-ml-md"
-        :label="$q.screen.gt.sm ? $t('next') : ''"
-        icon-right="arrow_forward_ios"
-        :disabled="parseInt(page) === totalPage"
-        @click="loadMoreData"
-        unelevated
-        no-caps
-      ></q-btn>
-    </div>
+    <!--End no content image-->
+
+    <!--form modal -->
+    <q-dialog v-model="modalForm" @before-hide="clearUser">
+      <q-card class="round-10 user-add-card">
+        <q-card-section class="title text-primary">
+          <span v-if="!user._id">{{ $t('addUserLabel') }}</span>
+          <span v-else>{{ $t('updateUserLabel') }}</span>
+          <q-btn
+            flat
+            dense
+            color="red"
+            v-close-popup
+            icon="close"
+            rounded
+            class="float-right"
+          >
+            <q-tooltip class="bg-red">
+              {{ $t('close') }}
+            </q-tooltip>
+          </q-btn>
+        </q-card-section>
+        <q-card-section style="margin-top: -10px">
+          <FormUserVue :userData="user" @close-modal="openModalForm" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!--end form modal-->
   </section>
 </template>
 
@@ -54,20 +62,69 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import TableUser from './partials/tableUser.vue';
+import { User } from 'src/interfaces/UserInterface';
+import TableCreWeb from 'src/components/general/tableCreWeb.vue';
+import FormUserVue from './partials/formUser.vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'UserMainComponent',
   components: {
-    TableUser,
+    TableCreWeb,
+    FormUserVue,
   },
   setup() {
     // data
-    const usersStore = useUsersStore();
+    const { t } = useI18n();
     const route = useRoute();
-    const router = useRouter();
-    const loading = ref<boolean>(false);
     const page = ref<any>(1);
+    const router = useRouter();
+    const usersStore = useUsersStore();
+    const loading = ref<boolean>(false);
+    const modalForm = ref<boolean>(false);
+    const user = ref<User>({
+      username: '',
+      name: '',
+      last_name: '',
+      email: '',
+      password: '',
+    });
+    const rowsTable = [
+      {
+        name: 'username',
+        required: true,
+        label: t('username'),
+        align: 'left',
+        field: (row: User) => row.username,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'name',
+        required: true,
+        label: t('name'),
+        align: 'left',
+        field: (row: User) => `${row.name} ${row.last_name}`,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'role',
+        required: true,
+        label: t('rol'),
+        align: 'left',
+        field: (row: User) => row.role,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'options',
+        required: true,
+        label: t('options'),
+        align: 'center',
+        sortable: false,
+      },
+    ];
 
     // computed
     const users = computed(() => {
@@ -76,6 +133,10 @@ export default defineComponent({
 
     const totalPage = computed(() => {
       return usersStore.totalPage;
+    });
+
+    const totalUsers = computed(() => {
+      return usersStore.totalUsers;
     });
 
     // methods
@@ -97,13 +158,12 @@ export default defineComponent({
     };
 
     const doSearch = async (search: string) => {
-      const page = route.query.page ? route.query.page : 1;
       const perPage = route.query.perPage ? route.query.perPage : 1;
       router.push({
         name: 'users',
         query: {
           search,
-          page,
+          page: 1,
           perPage,
         },
       });
@@ -149,6 +209,20 @@ export default defineComponent({
       }
     };
 
+    const clearUser = () => {
+      user.value = {
+        username: '',
+        name: '',
+        last_name: '',
+        email: '',
+        password: '',
+      };
+    };
+
+    const openModalForm = () => {
+      modalForm.value = !modalForm.value;
+    };
+
     // life cycle
     onBeforeMount(async () => {
       await listUsers();
@@ -160,13 +234,19 @@ export default defineComponent({
 
     // return data
     return {
+      page,
+      user,
       users,
       loading,
-      totalPage,
-      page,
+      rowsTable,
       doSearch,
+      clearUser,
+      totalPage,
+      modalForm,
       loadMoreData,
       loadMinusData,
+      openModalForm,
+      totalUsers,
     };
   },
 });

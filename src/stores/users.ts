@@ -14,6 +14,7 @@ export const useUsersStore = defineStore('userStore', () => {
   // data
   const users = ref<User[]>([]);
   const totalPage = ref<number>(1);
+  const totalUsers = ref<number>(1);
 
   // methods
   const doGetUsers = async (queryParams: string) => {
@@ -26,6 +27,7 @@ export const useUsersStore = defineStore('userStore', () => {
       if (data && data.users) {
         users.value.push(...data.users);
         totalPage.value = data.totalPages;
+        totalUsers.value = data.totalUsers;
       }
     } catch (error) {
       console.log(error);
@@ -42,6 +44,7 @@ export const useUsersStore = defineStore('userStore', () => {
       )) as ResponseObj;
       if (response.success) {
         users.value.push(response.data);
+        totalUsers.value++;
       }
       return response;
     } catch (error) {
@@ -82,6 +85,7 @@ export const useUsersStore = defineStore('userStore', () => {
       )) as ResponseObj;
       if (response.success) {
         users.value.splice(idx, 1);
+        totalUsers.value--;
         return response;
       }
     } catch (error) {
@@ -103,5 +107,6 @@ export const useUsersStore = defineStore('userStore', () => {
     doSaveUser,
     doDeleteUsers,
     doUpdateUser,
+    totalUsers,
   };
 });

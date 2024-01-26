@@ -157,4 +157,6 @@ export default {
     'You change your opinion? No problem, remove the button by right clicking',
   rememberHelpCenter:
     'Remember to save the changes in the top right corner to finish',
+  rol: 'Role',
+  options: 'Options',
 };

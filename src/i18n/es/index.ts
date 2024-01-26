@@ -157,4 +157,6 @@ export default {
     '¿Cambiaste de opinión? No hay problema, elimina el botón al darle clic derecho',
   rememberHelpCenter:
     'Recuerda guardar los cambios en la parte superior derecha para finalizar.',
+  rol: 'Rol',
+  options: 'Opciones',
 };

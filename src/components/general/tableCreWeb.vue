@@ -150,12 +150,12 @@
                   dense
                   round
                   size="9pt"
-                  icon="delete"
-                  color="primary"
+                  icon="photo_library"
+                  color="deep-orange-5"
                   v-if="showGaleryButton"
                   @click="doOpenGalery(props.row)"
                 >
-                  <q-tooltip class="bg-primary">
+                  <q-tooltip class="bg-deep-orange-5">
                     {{ $t('defaultImage') }}
                   </q-tooltip>
                 </q-btn>

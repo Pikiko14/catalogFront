@@ -59,7 +59,7 @@
     <!--Import page modal-->
     <q-dialog v-model="importModal">
       <q-card class="round-10 card-import-pdf">
-        <q-card-section class="title text-secondary">
+        <q-card-section class="title text-primary">
           <span v-if="importPdf"> {{ $t('pagesImpotLabelModal') }}</span>
           <span v-else> {{ $t('pagesCreationLabel') }}</span>
           <q-btn
@@ -113,7 +113,7 @@ import PageForm from './partials/form.vue';
 import { useRoute, useRouter } from 'vue-router';
 import ImportForm from './partials/importForm.vue';
 import { notification } from 'src/boot/notification';
-import TableSmart from '../../general/tableSmart.vue';
+import TableSmart from '../../general/gridSection.vue';
 import { useCatalogsStore } from 'src/stores/catalogs';
 import ConfigurationPage from './partials/configurationPage.vue';
 import { PageInterface } from 'src/interfaces/catalogueInterface';

@@ -154,6 +154,7 @@
                     {{ $t('edit') }}
                   </q-tooltip>
                 </q-btn>
+
                 <q-btn
                   flat
                   dense
@@ -168,6 +169,22 @@
                     {{ $t('defaultImage') }}
                   </q-tooltip>
                 </q-btn>
+
+                <q-btn
+                  flat
+                  dense
+                  round
+                  size="9pt"
+                  icon="auto_stories"
+                  color="blue-5"
+                  v-if="showPagesButton"
+                  :to="`/dashboard/catalogs/pages/${props.row._id}?page=1&perPage=16`"
+                >
+                  <q-tooltip class="bg-blue-5">
+                    {{ $t('pages') }}
+                  </q-tooltip>
+                </q-btn>
+
                 <q-icon
                   size="23pt"
                   v-if="showActiveBtn"
@@ -184,6 +201,7 @@
                     }}
                   </q-tooltip>
                 </q-icon>
+
                 <q-btn
                   flat
                   dense
@@ -264,6 +282,10 @@ export default defineComponent({
       default: () => false,
     },
     showActiveBtn: {
+      type: Boolean,
+      default: () => false,
+    },
+    showPagesButton: {
       type: Boolean,
       default: () => false,
     },

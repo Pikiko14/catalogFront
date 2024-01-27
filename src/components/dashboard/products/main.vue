@@ -54,7 +54,7 @@
     <!--Product galery modal-->
     <q-dialog v-model="openProductGalery" @before-hide="clearProduct">
       <q-card class="round-10 product-add-card">
-        <q-card-section class="title text-secondary">
+        <q-card-section class="title text-primary">
           <span>
             {{ $t('productGalery') }}
           </span>

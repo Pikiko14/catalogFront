@@ -7,6 +7,7 @@
         @do-search="doSearch"
         :showActiveBtn="true"
         :title="$t('catalog')"
+        :showPagesButton="true"
         :totalRows="totalItems"
         @do-edit="doShowCatalog"
         @do-delete="deleteCatalog"
@@ -27,7 +28,7 @@
     <!--modal form-->
     <q-dialog v-model="openModal" @before-hide="clearCatalogue">
       <q-card class="round-10 user-add-card">
-        <q-card-section class="title text-secondary">
+        <q-card-section class="title text-primary">
           <span v-if="!catalogue._id">{{ $t('catalogAdd') }}</span>
           <span v-else>{{ $t('catalogUpdate') }}</span>
           <q-btn

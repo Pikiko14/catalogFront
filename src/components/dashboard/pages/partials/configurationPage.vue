@@ -34,13 +34,14 @@
       <component
         ref="refComponents"
         :is="renderPageSection()"
+        @do-add-product="doAddProduct"
         :images="configurationPage.images"
       />
     </q-card-section>
     <!--end edition section-->
 
     <!--Help center-->
-    <q-btn class="btn-help shadow-2" icon="help_center" round color="primary">
+    <q-btn class="btn-help shadow-2" icon="help" round color="secondary">
       <q-menu>
         <q-list style="min-height: 190px">
           <q-item-label header class="text-bold text-black font-10">
@@ -72,23 +73,99 @@
       </q-tooltip>
     </q-btn>
     <!--End help center-->
+
+    <!--modal products add to btn-->
+    <q-dialog
+      v-model="openProductModal"
+      @before-show="listProducts"
+      @before-hide="clearBtnIdx"
+    >
+      <q-card class="round-10 product-to-btn">
+        <q-card-section class="title text-primary">
+          <span>{{ $t('productAddBtn') }}</span>
+          <q-btn
+            flat
+            dense
+            color="red"
+            v-close-popup
+            icon="close"
+            rounded
+            class="float-right"
+          >
+            <q-tooltip class="bg-red">
+              {{ $t('close') }}
+            </q-tooltip>
+          </q-btn>
+        </q-card-section>
+        <q-card-section style="margin-top: -10px" class="q-pl-none">
+          <TableCreWeb
+            :data="products"
+            :rows="rowsTable"
+            :pageProps="page"
+            @do-search="doSearch"
+            :title="$t('product')"
+            :perPageProps="perPage"
+            :totalRows="totalItems"
+            @open-modal="openModal"
+            :permission="'create-products'"
+            @do-pagination="doPaginationProducts"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!--end products modal-->
+
+    <!--Product add and update modal-->
+    <q-dialog v-model="openModalProduct">
+      <q-card class="round-10 product-add-card">
+        <q-card-section class="title text-black">
+          <span>{{ $t('productAdd') }}</span>
+          <q-btn
+            flat
+            dense
+            color="red"
+            v-close-popup
+            icon="close"
+            rounded
+            class="float-right"
+          >
+            <q-tooltip class="bg-red">
+              {{ $t('close') }}
+            </q-tooltip>
+          </q-btn>
+        </q-card-section>
+        <q-card-section style="margin-top: -10px">
+          <FormProduct @close-modal="closeModal" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!--end product add or update modal-->
   </q-card>
 </template>
 
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import { defineComponent, ref, computed } from 'vue';
+import FormProduct from 'src/components/dashboard/products/partials/form.vue';
+import SimplePage from './pagesTypes/simple.vue';
+import { PaginationInterface } from 'src/interfaces/api';
 import {
   ImageInterface,
   PageInterface,
 } from 'src/interfaces/catalogueInterface';
 import { useCatalogsStore } from 'src/stores/catalogs';
-import { defineComponent, ref } from 'vue';
-import SimplePage from './pagesTypes/simple.vue';
+import { useProductsStore } from 'src/stores/products';
+import TableCreWeb from 'src/components/general/tableCreWeb.vue';
+import { ProductInterface } from 'src/interfaces/product';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'ConfigurationPage',
-  components: {},
+  components: {
+    TableCreWeb,
+    FormProduct,
+  },
   props: {
     configurationPage: {
       type: Object as () => PageInterface,
@@ -99,10 +176,70 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // data
+    const { t } = useI18n();
     const loading = ref(false);
+    const page = ref<number>(1);
     const refComponents = ref();
+    const search = ref<string>('');
+    const btnIdx = ref<number>(-1);
+    const perPage = ref<number>(1);
     const store = useCatalogsStore();
     const { configurationPage } = props;
+    const storeProduct = useProductsStore();
+    const openProductModal = ref<boolean>(false);
+    const openModalProduct = ref<boolean>(false);
+    const rowsTable = [
+      {
+        name: 'img',
+        required: true,
+        label: '',
+        align: 'center',
+        sortable: false,
+      },
+      {
+        name: 'name',
+        required: true,
+        label: t('name'),
+        align: 'left',
+        field: (row: ProductInterface) => row.name,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'reference',
+        required: true,
+        label: t('reference'),
+        align: 'left',
+        field: (row: ProductInterface) => row.reference,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        align: 'left',
+        required: true,
+        sortable: false,
+        name: 'category',
+        label: t('category'),
+        format: (val: any) =>
+          val.map((data: ProductInterface) => {
+            return `${data.name} `;
+          }),
+        field: (row: ProductInterface) => row.categories,
+      },
+    ];
+
+    // computed
+    const products = computed(() => {
+      return storeProduct.products;
+    });
+
+    const totalPage = computed(() => {
+      return storeProduct.totalPage;
+    });
+
+    const totalItems = computed(() => {
+      return storeProduct.totalItems;
+    });
 
     // methods
     const renderPageSection = () => {
@@ -137,14 +274,77 @@ export default defineComponent({
       }
     };
 
+    const doAddProduct = (idx: number) => {
+      btnIdx.value = idx;
+      openProductModal.value = !openProductModal.value;
+    };
+
+    const clearBtnIdx = () => {
+      btnIdx.value = -1;
+      storeProduct.clearProduct();
+    };
+
+    const listProducts = async () => {
+      const query: PaginationInterface = {
+        page: page.value,
+        perPage: perPage.value,
+        search: search.value,
+      };
+      page.value = query.page as number;
+      const params = `?page=${query.page}&perPage=${query.perPage}&search=${query.search}`;
+      try {
+        await storeProduct.doListProducts(params);
+      } catch (error) {
+      } finally {
+      }
+    };
+
+    const openModal = () => {
+      openModalProduct.value = !openModalProduct.value;
+    };
+
+    const closeModal = () => {
+      openModal();
+    };
+
+    const doSearch = async (string: string) => {
+      storeProduct.clearProduct();
+      page.value = 1;
+      search.value = string ? string : '';
+      perPage.value = 1;
+      await listProducts();
+    };
+
+    const doPaginationProducts = async (pagination: any) => {
+      storeProduct.clearProduct();
+      page.value = pagination.page;
+      perPage.value = pagination.rowsPerPage;
+      await listProducts();
+    };
+
     // life cycle
 
     // return data
     return {
+      page,
+      perPage,
       loading,
-      refComponents,
+      doSearch,
+      products,
+      openModal,
+      rowsTable,
+      totalPage,
       setButtons,
+      closeModal,
+      totalItems,
+      clearBtnIdx,
+      doAddProduct,
+      listProducts,
+      refComponents,
+      openProductModal,
+      openModalProduct,
       renderPageSection,
+      doPaginationProducts,
     };
   },
 });

@@ -289,6 +289,14 @@ export default defineComponent({
       type: Boolean,
       default: () => false,
     },
+    perPageProps: {
+      type: Number,
+      default: () => 0,
+    },
+    pageProps: {
+      type: Number,
+      default: () => 0,
+    },
   },
   setup(props, { emit }) {
     // data
@@ -307,13 +315,31 @@ export default defineComponent({
       employe: t('employe'),
     };
 
-    // atch
+    // watch
     watch(
       () => {
         return props.totalRows;
       },
       (val: number) => {
         pagination.value.rowsNumber = val;
+      }
+    );
+
+    watch(
+      () => {
+        return props.perPageProps;
+      },
+      (val: number) => {
+        pagination.value.rowsPerPage = val;
+      }
+    );
+
+    watch(
+      () => {
+        return props.pageProps;
+      },
+      (val: number) => {
+        pagination.value.page = val;
       }
     );
 
@@ -373,6 +399,13 @@ export default defineComponent({
       // totalRows validation
       if (props.totalRows) {
         pagination.value.rowsNumber = props.totalRows;
+      }
+      // props
+      if (props.perPageProps) {
+        pagination.value.rowsPerPage = props.perPageProps;
+      }
+      if (props.pageProps) {
+        pagination.value.page = props.pageProps;
       }
     });
 

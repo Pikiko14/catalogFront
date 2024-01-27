@@ -169,4 +169,5 @@ export default {
   dateEnd: 'Fecha fin',
   activate: 'Activar',
   desActivate: 'Desactivar',
+  productAddBtn: 'Agregar producto al boton',
 };

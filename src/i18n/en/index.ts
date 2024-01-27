@@ -169,4 +169,5 @@ export default {
   dateEnd: 'Date end',
   activate: 'Activate',
   desActivate: 'disable',
+  productAddBtn: 'Add product to button',
 };

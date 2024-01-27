@@ -69,14 +69,13 @@ export default defineComponent({
       default: () => [],
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     // data
     const apiUrl = process.env.API_URL;
     const imageCoords: any = ref();
     const buttons: any = ref([]);
     const draggingButton: any = ref(null);
     const buttonSize = 8;
-    const buttonIdx = ref<number>(-1);
 
     // computeds
     const image = computed(() => {
@@ -154,7 +153,7 @@ export default defineComponent({
     };
 
     const addProduct = (idx: number) => {
-      buttonIdx.value = idx;
+      emit('do-add-product', idx);
     };
 
     // life cycle

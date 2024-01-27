@@ -114,6 +114,8 @@
                       ? `${apiUrl}/${props.row.default_image.path}`
                       : props.row.image
                       ? `${apiUrl}/${props.row.image}`
+                      : props.row.cover
+                      ? `${apiUrl}/${props.row.cover}`
                       : '/images/no-image.png'
                   }`"
                   color="secondary"

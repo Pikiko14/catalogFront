@@ -2,9 +2,11 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
-import { ResponseObj } from 'src/interfaces/Api';
-import { Catalogue } from 'src/interfaces/CatalogueInterface';
-import { ImportPagesInterface } from 'src/interfaces/CatalogueInterface';
+import { ResponseObj } from 'src/interfaces/api';
+import {
+  ImportPagesInterface,
+  Catalogue,
+} from 'src/interfaces/catalogueInterface';
 
 const path = 'catalogues';
 const handlerRequest = new Request({
@@ -13,8 +15,9 @@ const handlerRequest = new Request({
 
 export const useCatalogsStore = defineStore('catalogsStore', () => {
   // data
-  const catalogs = ref<Catalogue[]>([]);
   const totalPage = ref<number>(1);
+  const totalItems = ref<number>(1);
+  const catalogs = ref<Catalogue[]>([]);
 
   // methods
   const doListCatalogues = async (queryParams: string) => {
@@ -27,6 +30,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
       if (response.success) {
         catalogs.value.push(...response.data.catalogues);
         totalPage.value = response.data.totalPages;
+        totalItems.value = response.data.totalCatalogues;
       }
       return response;
     } catch (error) {
@@ -203,6 +207,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
     activateCatalog,
     doSavePage,
     deletePage,
+    totalItems,
     setButtonsOnPage,
   };
 });

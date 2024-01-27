@@ -118,7 +118,7 @@ import { useCatalogsStore } from 'src/stores/catalogs';
 import ConfigurationPage from './partials/configurationPage.vue';
 import { PageInterface } from 'src/interfaces/catalogueInterface';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
-import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
+import { PaginationInterface, ResponseObj } from 'src/interfaces/api';
 
 export default defineComponent({
   name: 'CatalogPagesMainComponents',

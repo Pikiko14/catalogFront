@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from 'boot/axios';
 import { notification } from 'boot/notification';
-import { ResponseObj } from 'src/interfaces/Api';
+import { ResponseObj } from 'src/interfaces/api';
 import { Storage } from 'src/utils/storage';
 
 const storage = new Storage('api');

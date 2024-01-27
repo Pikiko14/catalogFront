@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
-import { ResponseObj } from 'src/interfaces/Api';
+import { ResponseObj } from 'src/interfaces/api';
 import {
   MediaProductInterface,
   ProductInterface,

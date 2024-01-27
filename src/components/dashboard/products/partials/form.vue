@@ -113,7 +113,7 @@ import {
 import PricesFormSection from './prices.vue';
 import DefailtProductForm from './detail.vue';
 import VariantProductForm from './variants.vue';
-import { PaginationInterface } from 'src/interfaces/Api';
+import { PaginationInterface } from 'src/interfaces/api';
 import { useCategoriesStore } from 'src/stores/categories';
 import {
   FileObject,

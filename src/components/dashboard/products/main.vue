@@ -100,7 +100,7 @@ import { notification } from 'src/boot/notification';
 import { useProductsStore } from 'src/stores/products';
 import { ProductInterface } from 'src/interfaces/product';
 import TableCreWeb from 'src/components/general/tableCreWeb.vue';
-import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
+import { PaginationInterface, ResponseObj } from 'src/interfaces/api';
 
 export default defineComponent({
   name: 'ProductsMainComponent',

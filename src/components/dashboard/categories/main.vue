@@ -39,7 +39,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { PaginationInterface } from 'src/interfaces/Api';
+import { PaginationInterface } from 'src/interfaces/api';
 import {
   defineComponent,
   onBeforeMount,

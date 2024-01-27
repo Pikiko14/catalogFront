@@ -55,7 +55,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
+import { PaginationInterface, ResponseObj } from 'src/interfaces/api';
 import { useUsersStore } from 'src/stores/users';
 import {
   defineComponent,

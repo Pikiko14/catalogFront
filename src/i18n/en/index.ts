@@ -165,4 +165,6 @@ export default {
   totalProduct: 'Total products',
   employe: 'Employe',
   admin: 'Administrador',
+  dateStart: 'Date start',
+  dateEnd: 'Date end',
 };

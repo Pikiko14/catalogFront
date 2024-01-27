@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
-import { ResponseObj } from 'src/interfaces/Api';
+import { ResponseObj } from 'src/interfaces/api';
 import { CategoryInterface } from 'src/interfaces/categories';
 
 const handlerRequest = new Request({

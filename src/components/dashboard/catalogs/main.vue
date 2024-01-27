@@ -1,49 +1,28 @@
 <template>
   <section class="row q-px-sm">
     <div class="col-12">
-      <TableSmart
-        :title="$t('catalog')"
-        :permission="'create-catalogues'"
-        :tooltipbtn="$t('addCatalogLabel')"
-        :type="'catalog'"
+      <TableCreWeb
+        :rows="rowsTable"
         :data="catalogues"
         @do-search="doSearch"
-        @open-modal="openModalForm"
+        :title="$t('catalog')"
+        :totalRows="totalItems"
+        @do-edit="doShowCatalog"
         @do-delete="deleteCatalog"
-        @do-show="doShowCatalog"
+        @open-modal="openModalForm"
+        :permission="'create-catalogues'"
         @do-activation-catalog="doActivationCatalog"
       />
     </div>
+
+    <!--No data section-->
     <div class="col-12 no-pages" v-if="catalogues.length === 0">
       <q-img src="/images/no-content.png" width="320px"></q-img>
       <p>{{ $t('dontHaveCatalogues') }}.</p>
     </div>
-    <div class="col-12 q-mt-xl text-center" v-if="totalPage > 1">
-      <q-btn
-        rounded
-        color="secondary"
-        :label="$q.screen.gt.sm ? $t('back') : ''"
-        :disabled="parseInt(page) === 1"
-        @click="loadMinusData"
-        icon="arrow_back_ios"
-        unelevated
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-mr-md"
-        no-caps
-      ></q-btn>
-      <q-btn
-        rounded
-        color="secondary"
-        :style="$q.screen.gt.sm ? 'width: 160px' : ''"
-        class="q-ml-md"
-        :label="$q.screen.gt.sm ? $t('next') : ''"
-        icon-right="arrow_forward_ios"
-        :disabled="parseInt(page) === totalPage"
-        @click="loadMoreData"
-        unelevated
-        no-caps
-      ></q-btn>
-    </div>
+    <!--end no data section-->
+
+    <!--modal form-->
     <q-dialog v-model="openModal" @before-hide="clearCatalogue">
       <q-card class="round-10 user-add-card">
         <q-card-section class="title text-secondary">
@@ -68,28 +47,30 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+    <!--modal form-->
   </section>
 </template>
 
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount, ref } from 'vue';
-import TableSmart from '../../general/tableSmart.vue';
-import { useCatalogsStore } from 'src/stores/catalogs';
-import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
-import { useRoute, useRouter } from 'vue-router';
-import CatalogForm from './partials/form.vue';
+import { date } from 'quasar';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import CatalogForm from './partials/form.vue';
+import { useRoute, useRouter } from 'vue-router';
 import { notification } from 'src/boot/notification';
+import { useCatalogsStore } from 'src/stores/catalogs';
 import { Catalogue } from 'src/interfaces/catalogueInterface';
+import TableCreWeb from 'src/components/general/tableCreWeb.vue';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue';
+import { PaginationInterface, ResponseObj } from 'src/interfaces/api';
 
 export default defineComponent({
   name: 'CatalogMainComponents',
   components: {
-    TableSmart,
     CatalogForm,
+    TableCreWeb,
   },
   setup() {
     // data
@@ -107,6 +88,57 @@ export default defineComponent({
       is_active: false,
       cover: null,
     });
+    const rowsTable = [
+      {
+        name: 'img',
+        required: true,
+        align: 'left',
+        sortable: false,
+      },
+      {
+        name: 'name',
+        required: true,
+        label: t('name'),
+        align: 'left',
+        field: (row: Catalogue) => row.name,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'dateStart',
+        required: true,
+        label: t('dateStart'),
+        align: 'left',
+        field: (row: Catalogue) => row.start_date,
+        format: (val: string) => `${date.formatDate(val, 'YYYY-MM-DD')}`,
+        sortable: false,
+      },
+      {
+        name: 'dateEnd',
+        required: true,
+        label: t('dateEnd'),
+        align: 'left',
+        field: (row: Catalogue) => row.end_date,
+        format: (val: string) => `${date.formatDate(val, 'YYYY-MM-DD')}`,
+        sortable: false,
+      },
+      {
+        name: 'totalPage',
+        required: true,
+        label: `# ${t('pages')}`,
+        align: 'center',
+        field: (row: Catalogue) => (row.pages ? row.pages.length : 0),
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
+        name: 'options',
+        required: true,
+        label: t('options'),
+        align: 'center',
+        sortable: false,
+      },
+    ];
 
     // computed
     const catalogues = computed(() => {
@@ -115,6 +147,10 @@ export default defineComponent({
 
     const totalPage = computed(() => {
       return catalogsStore.totalPage;
+    });
+
+    const totalItems = computed(() => {
+      return catalogsStore.totalItems;
     });
 
     // methods
@@ -271,7 +307,9 @@ export default defineComponent({
       catalogues,
       totalPage,
       page,
+      rowsTable,
       catalogue,
+      totalItems,
     };
   },
 });

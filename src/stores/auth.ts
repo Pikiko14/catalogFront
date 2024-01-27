@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
-import { ProfileInterface, RegisterData } from 'src/interfaces/AuthInterface';
-import { ResponseObj } from 'src/interfaces/Api';
-import { LoginData } from './../interfaces/AuthInterface';
+import { ProfileInterface, RegisterData } from 'src/interfaces/authInterface';
+import { ResponseObj } from 'src/interfaces/api';
+import { LoginData } from '../interfaces/authInterface';
 import { Storage } from 'src/utils/storage';
 import { User } from 'src/interfaces/userInterface';
 import { SubscriptionsInterface } from 'src/interfaces/subscriptionInterface';

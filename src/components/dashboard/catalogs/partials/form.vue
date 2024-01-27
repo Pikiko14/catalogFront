@@ -217,7 +217,7 @@ import VuePictureCropper, { cropper } from 'vue-picture-cropper';
 import { notification } from 'src/boot/notification';
 import { useI18n } from 'vue-i18n';
 import { useCatalogsStore } from 'src/stores/catalogs';
-import { ResponseObj } from 'src/interfaces/Api';
+import { ResponseObj } from 'src/interfaces/api';
 import { date } from 'quasar';
 
 export default defineComponent({

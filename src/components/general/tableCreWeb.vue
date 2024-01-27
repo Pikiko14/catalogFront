@@ -100,11 +100,14 @@
         <q-card-section>
           <q-table
             flat
+            row-key="name"
             :rows="data"
             :columns="rows"
             @request="onRequest"
             class="shadow-0 bg-transparent"
             v-model:pagination="pagination"
+            :selection="enableSelected ? 'single' : 'none'"
+            v-model:selected="selectedProduct"
           >
             <!--Image td-->
             <template v-slot:body-cell-img="props">
@@ -297,6 +300,10 @@ export default defineComponent({
       type: Number,
       default: () => 0,
     },
+    enableSelected: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   setup(props, { emit }) {
     // data
@@ -314,6 +321,7 @@ export default defineComponent({
       admin: t('admin'),
       employe: t('employe'),
     };
+    const selectedProduct = ref([]);
 
     // watch
     watch(
@@ -424,6 +432,7 @@ export default defineComponent({
       doActiveData,
       openModalForm,
       showImportModal,
+      selectedProduct,
     };
   },
 });

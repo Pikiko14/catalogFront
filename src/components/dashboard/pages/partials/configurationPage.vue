@@ -99,10 +99,12 @@
         </q-card-section>
         <q-card-section style="margin-top: -10px" class="q-pl-none">
           <TableCreWeb
+            ref="tableProducts"
             :data="products"
             :rows="rowsTable"
             :pageProps="page"
             @do-search="doSearch"
+            :enableSelected="true"
             :title="$t('product')"
             :perPageProps="perPage"
             :totalRows="totalItems"
@@ -110,6 +112,16 @@
             :permission="'create-products'"
             @do-pagination="doPaginationProducts"
           />
+          <div class="full-width text-center">
+            <q-btn
+              no-caps
+              rounded
+              unelevated
+              color="secondary"
+              :label="$t('save')"
+              @click="saveProductToBtn"
+            ></q-btn>
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -182,7 +194,7 @@ export default defineComponent({
     const refComponents = ref();
     const search = ref<string>('');
     const btnIdx = ref<number>(-1);
-    const perPage = ref<number>(1);
+    const perPage = ref<number>(12);
     const store = useCatalogsStore();
     const { configurationPage } = props;
     const storeProduct = useProductsStore();
@@ -227,6 +239,7 @@ export default defineComponent({
         field: (row: ProductInterface) => row.categories,
       },
     ];
+    const tableProducts = ref();
 
     // computed
     const products = computed(() => {
@@ -281,6 +294,9 @@ export default defineComponent({
 
     const clearBtnIdx = () => {
       btnIdx.value = -1;
+      page.value = 1;
+      perPage.value = 12;
+      search.value = '';
       storeProduct.clearProduct();
     };
 
@@ -311,7 +327,7 @@ export default defineComponent({
       storeProduct.clearProduct();
       page.value = 1;
       search.value = string ? string : '';
-      perPage.value = 1;
+      perPage.value = 12;
       await listProducts();
     };
 
@@ -320,6 +336,16 @@ export default defineComponent({
       page.value = pagination.page;
       perPage.value = pagination.rowsPerPage;
       await listProducts();
+    };
+
+    const saveProductToBtn = () => {
+      const { selectedProduct } = tableProducts.value;
+      if (selectedProduct && selectedProduct.length === 0) {
+        return false;
+      }
+      refComponents.value.buttons[btnIdx.value].product = selectedProduct;
+      clearBtnIdx();
+      openProductModal.value = false;
     };
 
     // life cycle
@@ -341,6 +367,8 @@ export default defineComponent({
       doAddProduct,
       listProducts,
       refComponents,
+      tableProducts,
+      saveProductToBtn,
       openProductModal,
       openModalProduct,
       renderPageSection,

@@ -6,11 +6,12 @@
         :rows="rowsTable"
         @do-search="doSearch"
         :title="$t('product')"
+        :showGaleryButton="true"
         :totalRows="totalItems"
         @open-modal="openModal"
         @do-edit="doShowProduct"
         @do-delete="deleteProduct"
-        @action-one="doSetDefaultImg"
+        @open-galery="doSetDefaultImg"
         :permission="'create-products'"
         @do-pagination="doPaginationProducts"
       />
@@ -244,9 +245,9 @@ export default defineComponent({
       } catch (error) {}
     };
 
-    const doSetDefaultImg = async (id: string) => {
+    const doSetDefaultImg = async (row: ProductInterface) => {
       try {
-        const response = (await store.doGetProduct(id)) as ResponseObj;
+        const response = (await store.doGetProduct(row._id)) as ResponseObj;
         if (response.success) {
           openProductGalery.value = !openProductGalery.value;
         }

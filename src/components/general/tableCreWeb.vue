@@ -152,6 +152,20 @@
                   size="9pt"
                   icon="delete"
                   color="primary"
+                  v-if="showGaleryButton"
+                  @click="doOpenGalery(props.row)"
+                >
+                  <q-tooltip class="bg-primary">
+                    {{ $t('defaultImage') }}
+                  </q-tooltip>
+                </q-btn>
+                <q-btn
+                  flat
+                  dense
+                  round
+                  size="9pt"
+                  icon="delete"
+                  color="primary"
                   @click="doDeleteData(props.row)"
                 >
                   <q-tooltip class="bg-primary">
@@ -220,6 +234,10 @@ export default defineComponent({
       type: Number,
       default: () => 1,
     },
+    showGaleryButton: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   setup(props, { emit }) {
     // data
@@ -275,6 +293,10 @@ export default defineComponent({
       emit('do-pagination', pagination);
     };
 
+    const doOpenGalery = (row: any) => {
+      emit('open-galery', row);
+    };
+
     // life cicle
     onBeforeMount(() => {
       // search query params
@@ -308,8 +330,9 @@ export default defineComponent({
       onRequest,
       pagination,
       doEditData,
-      doDeleteData,
       doSearchUser,
+      doOpenGalery,
+      doDeleteData,
       openModalForm,
       showImportModal,
     };

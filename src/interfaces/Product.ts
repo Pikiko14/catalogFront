@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ProductInterface {
-  id?: string;
+  id?: string | any;
   tax?: number;
-  _id?: string;
+  _id?: string | any;
   name?: string;
   user_id?: string;
   reference?: string;

@@ -109,7 +109,11 @@
             <template v-slot:body-cell-img="props">
               <q-td class="text-center" style="width: 50px">
                 <q-img
-                  :src="`${apiUrl}/${props.row.default_image.path}`"
+                  :src="`${
+                    props.row.default_image
+                      ? `${apiUrl}/${props.row.default_image.path}`
+                      : '/images/no-image.png'
+                  }`"
                   color="secondary"
                   class="text-white"
                   style="width: 30px; height: 30px; border-radius: 5px"

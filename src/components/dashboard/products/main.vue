@@ -4,8 +4,9 @@
       <TableCreWeb
         :data="products"
         :rows="rowsTable"
-        :totalRows="totalItems"
+        @do-search="doSearch"
         :title="$t('product')"
+        :totalRows="totalItems"
         @open-modal="openModal"
         @do-edit="doShowProduct"
         @do-delete="deleteProduct"

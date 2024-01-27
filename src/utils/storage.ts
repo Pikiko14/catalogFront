@@ -67,6 +67,9 @@ export class Storage {
 
   removeCookie(cookieName: string) {
     document.cookie =
-      cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      cookieName +
+      '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' +
+      window.location.hostname +
+      ';';
   }
 }

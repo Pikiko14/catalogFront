@@ -45,6 +45,7 @@ export default {
   edit: 'Editar',
   delete: 'Eliminar',
   deleteUserLabel: '¿Estas seguro de querer eliminar este usuario?',
+  deleteProductLabel: '¿Estas seguro de querer eliminar este producto?',
   deleteCategoryLabel: '¿Estas seguro de querer eliminar esta categoría?',
   catalog: 'Catalogos',
   addCatalogLabel: 'Crear catalogos',

@@ -45,6 +45,7 @@ export default {
   edit: 'Edit',
   delete: 'Delete',
   deleteUserLabel: '¿Are you sure you want to delete this user?',
+  deleteProductLabel: '¿Are you sure you want to delete this product?',
   deleteCategoryLabel: '¿Are you sure you want to delete this category?',
   catalog: 'Catalogs',
   addCatalogLabel: 'Add catalog',

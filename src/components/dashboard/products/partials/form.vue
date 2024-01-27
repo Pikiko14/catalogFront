@@ -262,7 +262,6 @@ export default defineComponent({
     };
 
     const emitValue = (data: ProductInterface) => {
-      data.variants = [];
       product.value = data;
     };
 

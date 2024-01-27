@@ -5,7 +5,7 @@
         v-model="tab"
         inline-label
         outside-arrows
-        class="text-capitalize text-secondary"
+        class="text-capitalize text-primary"
       >
         <q-tab
           name="subscriptions"

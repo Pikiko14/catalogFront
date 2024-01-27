@@ -3,7 +3,7 @@
     <q-form @submit="doSaveProfile">
       <q-card class="round-10 shadow-0">
         <q-card-section>
-          <span class="text-h6 text-bold text-secondary">
+          <span class="text-h6 text-bold text-primary">
             {{ $t('brandData') }}
           </span>
           <q-btn

@@ -54,6 +54,7 @@ export const useProductsStore = defineStore('productsStore', () => {
       )) as ResponseObj;
       if (response.success) {
         products.value.push(response.data);
+        totalItems.value++;
         return response;
       }
     } catch (error) {
@@ -72,6 +73,7 @@ export const useProductsStore = defineStore('productsStore', () => {
           return data._id === id;
         });
         products.value.splice(index, 1);
+        totalItems.value--;
         return response;
       }
     } catch (error) {

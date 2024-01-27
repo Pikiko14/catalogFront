@@ -136,6 +136,15 @@ export default defineComponent({
         sortable: false,
       },
       {
+        name: 'reference',
+        required: true,
+        label: t('reference'),
+        align: 'left',
+        field: (row: ProductInterface) => row.reference,
+        format: (val: string) => `${val}`,
+        sortable: false,
+      },
+      {
         align: 'left',
         required: true,
         sortable: false,

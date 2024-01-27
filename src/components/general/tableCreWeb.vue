@@ -112,6 +112,8 @@
                   :src="`${
                     props.row.default_image
                       ? `${apiUrl}/${props.row.default_image.path}`
+                      : props.row.image
+                      ? `${apiUrl}/${props.row.image}`
                       : '/images/no-image.png'
                   }`"
                   color="secondary"

@@ -78,6 +78,12 @@ export default defineComponent({
     });
     const rowsTable = [
       {
+        name: 'img',
+        required: true,
+        align: 'left',
+        sortable: false,
+      },
+      {
         name: 'name',
         required: true,
         label: t('name'),

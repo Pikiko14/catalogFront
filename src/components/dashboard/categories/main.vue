@@ -142,12 +142,11 @@ export default defineComponent({
     };
 
     const doSearch = async (search: string) => {
-      const page = route.query.page ? route.query.page : 1;
       const perPage = route.query.perPage ? route.query.perPage : 1;
       router.push({
         name: 'categories',
         query: {
-          page,
+          page: 1,
           perPage,
           search,
         },

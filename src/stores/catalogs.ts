@@ -30,7 +30,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
       if (response.success) {
         catalogs.value.push(...response.data.catalogues);
         totalPage.value = response.data.totalPages;
-        totalItems.value = response.data.totalCatalogues;
+        totalItems.value = response.data.totalCatalogs;
       }
       return response;
     } catch (error) {

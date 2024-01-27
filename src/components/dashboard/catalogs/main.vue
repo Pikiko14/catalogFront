@@ -11,6 +11,7 @@
         @do-delete="deleteCatalog"
         @open-modal="openModalForm"
         :permission="'create-catalogues'"
+        @do-pagination="doPaginationCatalogues"
         @do-activation-catalog="doActivationCatalog"
       />
     </div>
@@ -155,13 +156,12 @@ export default defineComponent({
 
     // methods
     const doSearch = (search: string) => {
-      const page = route.query.page ? route.query.page : 1;
       const perPage = route.query.perPage ? route.query.perPage : 1;
       router.push({
         name: 'catalogs',
         query: {
           search,
-          page,
+          page: 1,
           perPage,
         },
       });
@@ -284,6 +284,18 @@ export default defineComponent({
       }
     };
 
+    const doPaginationCatalogues = (pagination: any) => {
+      const search = route.query.search ? route.query.search : '';
+      router.push({
+        name: 'catalogues',
+        query: {
+          page: pagination.page || 1,
+          perPage: pagination.rowsPerPage || 12,
+          search,
+        },
+      });
+    };
+
     // life cycle
     onBeforeMount(async () => {
       await listCatalogues();
@@ -310,6 +322,7 @@ export default defineComponent({
       rowsTable,
       catalogue,
       totalItems,
+      doPaginationCatalogues,
     };
   },
 });

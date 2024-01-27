@@ -3,4 +3,6 @@ export interface CategoryInterface {
   _id?: string;
   name: string;
   user_id?: string | undefined;
+  file?: File;
+  image?: string;
 }

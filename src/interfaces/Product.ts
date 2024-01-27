@@ -63,4 +63,5 @@ export interface FileObject {
   webkitRelativePath: string;
   size: number;
   type: string;
+  filename?: string;
 }

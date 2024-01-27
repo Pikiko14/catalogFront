@@ -17,11 +17,12 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
   const categories = ref<CategoryInterface[]>([]);
 
   // methods
-  const saveCategory = async (params: CategoryInterface) => {
+  const saveCategory = async (params: FormData) => {
     try {
       const response = (await handlerRequest.doPostRequest(
         `${path}`,
         params,
+        true,
         true
       )) as ResponseObj;
       if (response.success) {
@@ -56,11 +57,16 @@ export const useCategoriesStore = defineStore('categoriesStore', () => {
     categories.value = [];
   };
 
-  const updateCategory = async (params: CategoryInterface, idx: number) => {
+  const updateCategory = async (
+    params: FormData,
+    id: string | undefined,
+    idx: number
+  ) => {
     try {
       const response = (await handlerRequest.doPutRequest(
-        `${path}/${params._id}`,
+        `${path}/${id}`,
         params,
+        true,
         true
       )) as ResponseObj;
       if (response.success) {

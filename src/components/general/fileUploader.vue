@@ -58,15 +58,20 @@ export default defineComponent({
   name: 'MediaProductForm',
   props: {
     medias: {
-      type: Array as () => MediaProductInterface[],
+      type: Array as () => any[],
       defualt: () => {
         return [];
       },
+    },
+    maxFile: {
+      type: Number,
+      default: () => 6,
     },
   },
   components: {},
   setup(props, { emit }) {
     // data
+    const { maxFile } = props;
     const { t } = useI18n();
     const file = ref<any>(null);
     const fileRef = ref<any>(null);
@@ -89,8 +94,14 @@ export default defineComponent({
     const handleDrop = (event: any) => {
       try {
         event.preventDefault();
-        if (filesBase64.value.length > 5) {
-          notification('negative', t('onlySixImage'), 'red');
+        if (filesBase64.value.length === maxFile) {
+          notification(
+            'negative',
+            `${t('onlySixImage')} ${maxFile} ${
+              maxFile > 1 ? t('images') : t('image')
+            }`,
+            'red'
+          );
           return false;
         }
         const files = event.dataTransfer.files;
@@ -120,8 +131,14 @@ export default defineComponent({
     };
 
     const setFile = (filePicker: FileObject) => {
-      if (filesBase64.value.length > 5) {
-        notification('negative', t('onlySixImage'), 'red');
+      if (filesBase64.value.length === maxFile) {
+        notification(
+          'negative',
+          `${t('onlySixImage')} ${maxFile} ${
+            maxFile > 1 ? t('images') : t('image')
+          }`,
+          'red'
+        );
         return false;
       }
       const maxSizeInBytes = 1024 * 1024;

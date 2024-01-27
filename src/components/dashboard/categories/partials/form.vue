@@ -45,6 +45,10 @@
             </template>
           </q-input>
         </div>
+        <div class="col-12">
+          <label for="">{{ $t('file') }}</label>
+          <FileUploader :medias="[]" :maxFile="1" @set-file="setFile" />
+        </div>
         <div class="col-12 text-center q-mt-sm">
           <q-btn
             type="submit"
@@ -62,16 +66,21 @@
 </template>
 
 <script lang="ts">
+import { Utils } from 'src/utils/utils';
 import useVuelidate from '@vuelidate/core';
-import { required, minLength, maxLength } from '@vuelidate/validators';
+import { notification } from 'src/boot/notification';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { useCategoriesStore } from 'src/stores/categories';
 import { CategoryInterface } from 'src/interfaces/categories';
-import { notification } from 'src/boot/notification';
+import { required, minLength, maxLength } from '@vuelidate/validators';
+import FileUploader from 'src/components/general/fileUploader.vue';
 
 export default defineComponent({
   name: 'FormConfigModal',
   emit: ['close-modal'],
+  components: {
+    FileUploader,
+  },
   props: {
     categoryData: {
       type: Object as () => CategoryInterface,
@@ -94,6 +103,7 @@ export default defineComponent({
     });
     const categoriesStore = useCategoriesStore();
     const { categoryData } = props;
+    const utils = new Utils('category');
 
     // valdiations
     //validations rules
@@ -118,7 +128,12 @@ export default defineComponent({
         return true;
       }
       try {
-        const response = await categoriesStore.saveCategory(category.value);
+        const paramsForm = utils.transformObjectInFormData(
+          category.value,
+          false,
+          null
+        );
+        const response = await categoriesStore.saveCategory(paramsForm);
         if (response?.success) {
           category.value = {
             name: '',
@@ -134,8 +149,14 @@ export default defineComponent({
 
     const doUpdateCategory = async () => {
       try {
-        const response = await categoriesStore.updateCategory(
+        const paramsForm = utils.transformObjectInFormData(
           category.value,
+          false,
+          null
+        );
+        const response = await categoriesStore.updateCategory(
+          paramsForm,
+          category.value._id,
           props.idx
         );
         if (response?.success) {
@@ -151,6 +172,10 @@ export default defineComponent({
       }
     };
 
+    const setFile = (file: File) => {
+      category.value.file = file;
+    };
+
     // life cycle
     onBeforeMount(async () => {
       if (categoryData._id) {
@@ -162,6 +187,7 @@ export default defineComponent({
     return {
       v$,
       loading,
+      setFile,
       category,
       doSaveCategory,
     };

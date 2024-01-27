@@ -5,14 +5,15 @@
         :rows="rowsTable"
         :data="catalogues"
         @do-search="doSearch"
+        :showActiveBtn="true"
         :title="$t('catalog')"
         :totalRows="totalItems"
         @do-edit="doShowCatalog"
         @do-delete="deleteCatalog"
         @open-modal="openModalForm"
+        @do-active="doActivationCatalog"
         :permission="'create-catalogues'"
         @do-pagination="doPaginationCatalogues"
-        @do-activation-catalog="doActivationCatalog"
       />
     </div>
 
@@ -266,13 +267,14 @@ export default defineComponent({
       };
     };
 
-    const doActivationCatalog = async (id: string) => {
+    const doActivationCatalog = async (row: Catalogue) => {
       try {
-        const data = await catalogsStore.activateCatalog(id);
+        const { _id } = row;
+        const data = await catalogsStore.activateCatalog(_id);
         if (data && data.success) {
           notification('positive', data.message, 'primary');
           const index = catalogues.value.findIndex(
-            (item: any) => item._id === id
+            (item: any) => item._id === _id
           );
           if (index !== -1) {
             catalogues.value[index].is_active =
@@ -287,7 +289,7 @@ export default defineComponent({
     const doPaginationCatalogues = (pagination: any) => {
       const search = route.query.search ? route.query.search : '';
       router.push({
-        name: 'catalogues',
+        name: 'catalogs',
         query: {
           page: pagination.page || 1,
           perPage: pagination.rowsPerPage || 12,

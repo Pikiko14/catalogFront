@@ -167,4 +167,6 @@ export default {
   admin: 'Administrador',
   dateStart: 'Date start',
   dateEnd: 'Date end',
+  activate: 'Activate',
+  desActivate: 'disable',
 };

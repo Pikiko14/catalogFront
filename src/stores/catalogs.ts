@@ -53,6 +53,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
       )) as ResponseObj;
       if (response.success) {
         catalogs.value.push(response.data);
+        totalItems.value++;
         return response;
       }
     } catch (error) {
@@ -71,6 +72,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
           return data._id === id;
         });
         catalogs.value.splice(index, 1);
+        totalItems.value--;
         return response;
       }
     } catch (error) {
@@ -131,7 +133,7 @@ export const useCatalogsStore = defineStore('catalogsStore', () => {
     }
   };
 
-  const activateCatalog = async (id: string) => {
+  const activateCatalog = async (id: string | undefined) => {
     try {
       const response = (await handlerRequest.doGetRequest(
         `catalogues/activate/${id}`,

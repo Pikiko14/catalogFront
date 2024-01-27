@@ -106,6 +106,7 @@
             class="shadow-0 bg-transparent"
             v-model:pagination="pagination"
           >
+            <!--Image td-->
             <template v-slot:body-cell-img="props">
               <q-td class="text-center" style="width: 50px">
                 <q-img
@@ -127,6 +128,8 @@
                 </q-img>
               </q-td>
             </template>
+
+            <!--role td-->
             <template v-slot:body-cell-role="props">
               <q-td class="text-center">
                 <q-chip color="secondary" class="text-white" square size="8pt">
@@ -134,6 +137,8 @@
                 </q-chip>
               </q-td>
             </template>
+
+            <!--options td-->
             <template v-slot:body-cell-options="props">
               <q-td class="text-center">
                 <q-btn
@@ -155,14 +160,30 @@
                   round
                   size="9pt"
                   icon="photo_library"
-                  color="deep-orange-5"
+                  color="purple-5"
                   v-if="showGaleryButton"
                   @click="doOpenGalery(props.row)"
                 >
-                  <q-tooltip class="bg-deep-orange-5">
+                  <q-tooltip class="bg-purple-5">
                     {{ $t('defaultImage') }}
                   </q-tooltip>
                 </q-btn>
+                <q-icon
+                  size="23pt"
+                  v-if="showActiveBtn"
+                  class="cursor-pointer"
+                  @click="doActiveData(props.row)"
+                  :color="!props.row.is_active ? 'red' : 'secondary'"
+                  :name="!props.row.is_active ? 'toggle_off' : 'toggle_on'"
+                >
+                  <q-tooltip
+                    :class="!props.row.is_active ? 'bg-red' : 'bg-secondary'"
+                  >
+                    {{
+                      !props.row.is_active ? $t('activate') : $t('desActivate')
+                    }}
+                  </q-tooltip>
+                </q-icon>
                 <q-btn
                   flat
                   dense
@@ -188,10 +209,10 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { Utils } from 'src/utils/utils';
-import { defineComponent, onBeforeMount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
+import { Utils } from 'src/utils/utils';
+import { defineComponent, onBeforeMount, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'TableCreWebComponent',
@@ -239,6 +260,10 @@ export default defineComponent({
       default: () => 1,
     },
     showGaleryButton: {
+      type: Boolean,
+      default: () => false,
+    },
+    showActiveBtn: {
       type: Boolean,
       default: () => false,
     },
@@ -301,6 +326,10 @@ export default defineComponent({
       emit('open-galery', row);
     };
 
+    const doActiveData = (row: any) => {
+      emit('do-active', row);
+    };
+
     // life cicle
     onBeforeMount(() => {
       // search query params
@@ -334,9 +363,10 @@ export default defineComponent({
       onRequest,
       pagination,
       doEditData,
-      doSearchUser,
       doOpenGalery,
       doDeleteData,
+      doSearchUser,
+      doActiveData,
       openModalForm,
       showImportModal,
     };

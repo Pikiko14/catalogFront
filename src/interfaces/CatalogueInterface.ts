@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Catalogue {
   _id?: string;
+  id?: string;
   name: string;
   start_date: Date | string | any;
   end_date: Date | string | any;

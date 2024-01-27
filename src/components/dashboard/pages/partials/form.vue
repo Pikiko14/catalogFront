@@ -157,7 +157,7 @@ import { notification } from 'src/boot/notification';
 import {
   ImageInterface,
   PageInterface,
-} from 'src/interfaces/CatalogueInterface';
+} from 'src/interfaces/catalogueInterface';
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';

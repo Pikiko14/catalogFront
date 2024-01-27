@@ -12,6 +12,7 @@
         @do-delete="deleteProduct"
         @action-one="doSetDefaultImg"
         :permission="'create-products'"
+        @do-pagination="doPaginationProducts"
       />
     </div>
 
@@ -96,7 +97,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { notification } from 'src/boot/notification';
 import { useProductsStore } from 'src/stores/products';
-import { ProductInterface } from 'src/interfaces/Product';
+import { ProductInterface } from 'src/interfaces/product';
 import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
 
@@ -258,56 +259,27 @@ export default defineComponent({
     };
 
     const doSearch = (search: string) => {
-      const page = route.query.page ? route.query.page : 1;
       const perPage = route.query.perPage ? route.query.perPage : 1;
       router.push({
         name: 'products',
         query: {
-          page,
+          page: 1,
           perPage,
           search,
         },
       });
     };
 
-    const loadMoreData = async () => {
-      if (page.value <= totalPage.value) {
-        const search = route.query.search ? route.query.search : '';
-        const perPage = route.query.perPage
-          ? (route.query.perPage as unknown as number)
-          : 12;
-        const pages: any = route.query.page
-          ? (route.query.page as unknown as number)
-          : 12;
-        router.push({
-          name: 'products',
-          query: {
-            page: parseInt(pages) + 1,
-            perPage,
-            search,
-          },
-        });
-      }
-    };
-
-    const loadMinusData = async () => {
-      if (page.value <= totalPage.value) {
-        const search = route.query.search ? route.query.search : '';
-        const perPage = route.query.perPage
-          ? (route.query.perPage as unknown as number)
-          : 12;
-        const pages: any = route.query.page
-          ? (route.query.page as unknown as number)
-          : 12;
-        router.push({
-          name: 'products',
-          query: {
-            page: parseInt(pages) - 1,
-            perPage,
-            search,
-          },
-        });
-      }
+    const doPaginationProducts = (pagination: any) => {
+      const search = route.query.search ? route.query.search : '';
+      router.push({
+        name: 'products',
+        query: {
+          page: pagination.page || 1,
+          perPage: pagination.rowsPerPage || 12,
+          search,
+        },
+      });
     };
 
     // life cycle
@@ -337,8 +309,7 @@ export default defineComponent({
       doShowProduct,
       deleteProduct,
       doSetDefaultImg,
-      loadMinusData,
-      loadMoreData,
+      doPaginationProducts,
     };
   },
 });

@@ -65,7 +65,7 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { User } from 'src/interfaces/UserInterface';
+import { User } from 'src/interfaces/userInterface';
 import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import FormUserVue from './partials/formUser.vue';
 import { useI18n } from 'vue-i18n';

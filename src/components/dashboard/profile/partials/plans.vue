@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import PlanCard from './planCard.vue';
-import { PlanInterface } from 'src/interfaces/SubscriptionInterface';
+import { PlanInterface } from 'src/interfaces/subscriptionInterface';
 
 export default defineComponent({
   name: 'PlansProfileTab',

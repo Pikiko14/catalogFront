@@ -205,7 +205,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
-import { Catalogue } from 'src/interfaces/CatalogueInterface';
+import { Catalogue } from 'src/interfaces/catalogueInterface';
 import {
   required,
   minLength,

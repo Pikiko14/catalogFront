@@ -163,7 +163,7 @@
 <script lang="ts">
 import { notification } from 'src/boot/notification';
 import { ResponseObj } from 'src/interfaces/Api';
-import { User } from 'src/interfaces/UserInterface';
+import { User } from 'src/interfaces/userInterface';
 import { useUsersStore } from 'src/stores/users';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';

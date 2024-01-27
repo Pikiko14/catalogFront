@@ -153,7 +153,7 @@ import {
   PricesInterface,
   ProductInterface,
   VariantsInterface,
-} from 'src/interfaces/Product';
+} from 'src/interfaces/product';
 
 export default defineComponent({
   name: 'VariantProductForm',

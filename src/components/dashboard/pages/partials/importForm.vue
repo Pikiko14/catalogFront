@@ -48,7 +48,7 @@ import useVuelidate from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { notification } from 'src/boot/notification';
 import { ResponseObj } from 'src/interfaces/Api';
-import { ImportPagesInterface } from 'src/interfaces/CatalogueInterface';
+import { ImportPagesInterface } from 'src/interfaces/catalogueInterface';
 import { useCatalogsStore } from 'src/stores/catalogs';
 import { Utils } from 'src/utils/utils';
 import { defineComponent, ref } from 'vue';

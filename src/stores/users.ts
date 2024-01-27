@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
 import { ResponseObj } from 'src/interfaces/Api';
-import { User } from 'src/interfaces/UserInterface';
+import { User } from 'src/interfaces/userInterface';
 
 const path = 'users';
 const handlerRequest = new Request({

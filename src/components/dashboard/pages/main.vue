@@ -116,7 +116,7 @@ import { notification } from 'src/boot/notification';
 import TableSmart from '../../general/tableSmart.vue';
 import { useCatalogsStore } from 'src/stores/catalogs';
 import ConfigurationPage from './partials/configurationPage.vue';
-import { PageInterface } from 'src/interfaces/CatalogueInterface';
+import { PageInterface } from 'src/interfaces/catalogueInterface';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 import { PaginationInterface, ResponseObj } from 'src/interfaces/Api';
 

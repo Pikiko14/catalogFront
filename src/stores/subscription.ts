@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
 import { ResponseObj } from 'src/interfaces/Api';
-import { PlanInterface } from 'src/interfaces/SubscriptionInterface';
+import { PlanInterface } from 'src/interfaces/subscriptionInterface';
 
 const handlerRequest = new Request({
   Accept: 'application/json',

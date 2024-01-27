@@ -6,7 +6,7 @@ import { ResponseObj } from 'src/interfaces/Api';
 import {
   MediaProductInterface,
   ProductInterface,
-} from 'src/interfaces/Product';
+} from 'src/interfaces/product';
 
 const handlerRequest = new Request({
   Accept: 'application/json',

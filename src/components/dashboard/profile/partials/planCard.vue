@@ -208,7 +208,7 @@ import { computed, defineComponent, ref } from 'vue';
 import {
   DoSubscriptionParamsInterface,
   PlanInterface,
-} from 'src/interfaces/SubscriptionInterface';
+} from 'src/interfaces/subscriptionInterface';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from 'src/stores/auth';
 import { useSubscriptionStore } from 'src/stores/subscription';

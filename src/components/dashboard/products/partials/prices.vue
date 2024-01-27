@@ -102,7 +102,7 @@ import {
   ProductInterface,
   StatusPrice,
   VariantsInterface,
-} from 'src/interfaces/Product';
+} from 'src/interfaces/product';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import qCurrencyInput from 'src/components/general/qCurrencyInput.vue';
 

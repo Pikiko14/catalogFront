@@ -83,7 +83,7 @@ import CatalogForm from './partials/form.vue';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { notification } from 'src/boot/notification';
-import { Catalogue } from 'src/interfaces/CatalogueInterface';
+import { Catalogue } from 'src/interfaces/catalogueInterface';
 
 export default defineComponent({
   name: 'CatalogMainComponents',

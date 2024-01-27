@@ -13,8 +13,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts">
 import { notification } from 'src/boot/notification';
-import { ResponseObj } from 'src/interfaces/Api';
-import { MediaProductInterface } from 'src/interfaces/Product';
+import { MediaProductInterface } from 'src/interfaces/product';
 import { useProductsStore } from 'src/stores/products';
 import { defineComponent, computed } from 'vue';
 

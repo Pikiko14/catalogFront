@@ -6,8 +6,8 @@ import { ProfileInterface, RegisterData } from 'src/interfaces/AuthInterface';
 import { ResponseObj } from 'src/interfaces/Api';
 import { LoginData } from './../interfaces/AuthInterface';
 import { Storage } from 'src/utils/storage';
-import { User } from 'src/interfaces/UserInterface';
-import { SubscriptionsInterface } from 'src/interfaces/SubscriptionInterface';
+import { User } from 'src/interfaces/userInterface';
+import { SubscriptionsInterface } from 'src/interfaces/subscriptionInterface';
 
 const path = 'auth';
 const handlerRequest = new Request({

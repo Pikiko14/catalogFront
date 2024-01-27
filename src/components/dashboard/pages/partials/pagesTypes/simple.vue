@@ -52,7 +52,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { ImageInterface } from 'src/interfaces/CatalogueInterface';
+import { ImageInterface } from 'src/interfaces/catalogueInterface';
 import {
   computed,
   defineComponent,

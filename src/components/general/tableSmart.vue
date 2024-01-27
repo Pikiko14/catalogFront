@@ -308,7 +308,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { PageInterface } from 'src/interfaces/CatalogueInterface';
+import { PageInterface } from 'src/interfaces/catalogueInterface';
 import { Utils } from 'src/utils/utils';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';

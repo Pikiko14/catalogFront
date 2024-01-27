@@ -81,7 +81,7 @@
 import {
   ImageInterface,
   PageInterface,
-} from 'src/interfaces/CatalogueInterface';
+} from 'src/interfaces/catalogueInterface';
 import { useCatalogsStore } from 'src/stores/catalogs';
 import { defineComponent, ref } from 'vue';
 import SimplePage from './pagesTypes/simple.vue';

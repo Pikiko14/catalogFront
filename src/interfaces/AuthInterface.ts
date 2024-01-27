@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { User } from './UserInterface';
+import { User } from './userInterface';
 
 export interface Auth {
   success: boolean;

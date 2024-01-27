@@ -121,7 +121,7 @@ import {
   ProductInterface,
   StatusPrice,
   VariantsInterface,
-} from 'src/interfaces/Product';
+} from 'src/interfaces/product';
 import fileUploader from 'src/components/general/fileUploader.vue';
 import { Utils } from 'src/utils/utils';
 import { useProductsStore } from 'src/stores/products';

@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { notification } from 'src/boot/notification';
-import { FileObject, MediaProductInterface } from 'src/interfaces/Product';
+import { FileObject, MediaProductInterface } from 'src/interfaces/product';
 import { Utils } from 'src/utils/utils';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

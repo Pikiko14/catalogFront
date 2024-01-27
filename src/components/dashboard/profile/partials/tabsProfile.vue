@@ -37,7 +37,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import PlansTabs from './plans.vue';
-import { PlanInterface } from 'src/interfaces/SubscriptionInterface';
+import { PlanInterface } from 'src/interfaces/subscriptionInterface';
 
 export default defineComponent({
   name: 'TabsProfile',

@@ -124,7 +124,7 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 import useVuelidate from '@vuelidate/core';
-import { ProductInterface } from 'src/interfaces/Product';
+import { ProductInterface } from 'src/interfaces/product';
 import { required, minLength, maxLength } from '@vuelidate/validators';
 import { useCategoriesStore } from 'src/stores/categories';
 import { CategoryInterface } from 'src/interfaces/categories';

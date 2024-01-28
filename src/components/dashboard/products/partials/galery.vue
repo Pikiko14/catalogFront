@@ -3,7 +3,7 @@
     <article v-for="(media, idx) in product.medias" :key="idx">
       <q-img :src="`${apiUrl}/${media.path}`" alt="Galery image">
         <div class="overflow" @click="setDefaultImg(media)">
-          <q-icon name="favorite" size="14pt" color="white"></q-icon>
+          <q-icon name="favorite" size="14pt" color="secondary"></q-icon>
         </div>
       </q-img>
     </article>

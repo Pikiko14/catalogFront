@@ -636,6 +636,15 @@ iframe {
   cursor: pointer;
 }
 
+.exit-app-btn {
+  font-size: 9pt;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
 //*****MEDIA QUERIES*****//
 @media (max-width: 1300px) {
   .plan-card {

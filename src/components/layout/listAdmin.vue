@@ -100,6 +100,19 @@
       class="item-admin q-px-none q-mb-md absolute-bottom profile-card shadow-1"
     >
       <section>
+        <q-btn
+          icon="exit_to_app"
+          flat
+          dense
+          rounded
+          @click="doLogout"
+          v-if="profile.user_id"
+          class="absolute-top exit-app-btn"
+        >
+          <q-tooltip class="bg-secondary">
+            {{ $t('signOut') }}
+          </q-tooltip>
+        </q-btn>
         <q-avatar color="white" v-if="profile.user_id">
           <img
             :src="`${url}/${profile.profile_pictury}`"

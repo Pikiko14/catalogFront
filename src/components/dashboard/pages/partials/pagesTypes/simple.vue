@@ -158,7 +158,7 @@ export default defineComponent({
     };
 
     const addProduct = (idx: number) => {
-      emit('do-add-product', idx);
+      emit('do-add-product', idx, buttons.value[idx]);
     };
 
     // life cycle

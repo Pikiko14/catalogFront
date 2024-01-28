@@ -109,6 +109,11 @@
             :selection="enableSelected ? 'single' : 'none'"
             v-model:selected="selectedProduct"
           >
+            <!--selection slot-->
+            <template v-slot:body-selection="scope">
+              <q-toggle color="secondary" v-model="scope.selected" />
+            </template>
+
             <!--Image td-->
             <template v-slot:body-cell-img="props">
               <q-td class="text-center" style="width: 50px">
@@ -304,6 +309,10 @@ export default defineComponent({
       type: Boolean,
       default: () => false,
     },
+    selectedProductEdit: {
+      type: String,
+      default: () => '',
+    },
   },
   setup(props, { emit }) {
     // data
@@ -321,7 +330,7 @@ export default defineComponent({
       admin: t('admin'),
       employe: t('employe'),
     };
-    const selectedProduct = ref([]);
+    const selectedProduct = ref<any[]>([]);
 
     // watch
     watch(
@@ -386,6 +395,15 @@ export default defineComponent({
       emit('do-active', row);
     };
 
+    const setProductSelected = () => {
+      const product = props.data.find((data: any) => {
+        return data._id === props.selectedProductEdit;
+      });
+      if (product) {
+        selectedProduct.value.push(product);
+      }
+    };
+
     // life cicle
     onBeforeMount(() => {
       // search query params
@@ -414,6 +432,11 @@ export default defineComponent({
       }
       if (props.pageProps) {
         pagination.value.page = props.pageProps;
+      }
+      if (props.data) {
+        setTimeout(() => {
+          setProductSelected();
+        }, 100);
       }
     });
 

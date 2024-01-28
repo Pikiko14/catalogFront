@@ -109,6 +109,7 @@
             :perPageProps="perPage"
             :totalRows="totalItems"
             @open-modal="openModal"
+            :selectedProductEdit="buttonSelected"
             :permission="'create-products'"
             @do-pagination="doPaginationProducts"
           />
@@ -158,6 +159,8 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import { useI18n } from 'vue-i18n';
+import { useQuasar } from 'quasar';
 import { defineComponent, ref, computed } from 'vue';
 import FormProduct from 'src/components/dashboard/products/partials/form.vue';
 import SimplePage from './pagesTypes/simple.vue';
@@ -166,13 +169,11 @@ import {
   ImageInterface,
   PageInterface,
 } from 'src/interfaces/catalogueInterface';
+import { notification } from 'src/boot/notification';
 import { useCatalogsStore } from 'src/stores/catalogs';
 import { useProductsStore } from 'src/stores/products';
-import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import { ProductInterface } from 'src/interfaces/product';
-import { useI18n } from 'vue-i18n';
-import { notification } from 'src/boot/notification';
-import { useQuasar } from 'quasar';
+import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 
 export default defineComponent({
   name: 'ConfigurationPage',
@@ -242,7 +243,8 @@ export default defineComponent({
         field: (row: ProductInterface) => row.categories,
       },
     ];
-    const tableProducts = ref();
+    const tableProducts = ref<any>();
+    const buttonSelected = ref<any>({});
 
     // computed
     const products = computed(() => {
@@ -295,8 +297,9 @@ export default defineComponent({
       }
     };
 
-    const doAddProduct = (idx: number) => {
+    const doAddProduct = (idx: number, button: any) => {
       btnIdx.value = idx;
+      buttonSelected.value = button.product || null;
       openProductModal.value = !openProductModal.value;
     };
 
@@ -305,6 +308,7 @@ export default defineComponent({
       page.value = 1;
       perPage.value = 12;
       search.value = '';
+      buttonSelected.value = {};
       storeProduct.clearProduct();
     };
 
@@ -377,6 +381,7 @@ export default defineComponent({
       listProducts,
       refComponents,
       tableProducts,
+      buttonSelected,
       saveProductToBtn,
       openProductModal,
       openModalProduct,

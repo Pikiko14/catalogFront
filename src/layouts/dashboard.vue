@@ -50,13 +50,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onBeforeMount,
-  onBeforeUnmount,
-  ref,
-} from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import ListAdmin from 'src/components/layout/listAdmin.vue';
 import { useAuthStore } from 'src/stores/auth';
 

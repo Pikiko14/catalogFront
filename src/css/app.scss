@@ -629,6 +629,13 @@ iframe {
   min-width: 1000px;
 }
 
+.page-img:hover .overflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 //*****MEDIA QUERIES*****//
 @media (max-width: 1300px) {
   .plan-card {

@@ -95,12 +95,8 @@
     >
       <q-card v-if="type === 'pages'" class="shadow-1 round-10">
         <q-card-section horizontal class="q-pa-none">
-          <q-img
-            @mouseenter="showOverflow"
-            @mouseleave="showOverflow"
-            :src="`${apiUrl}${item.images[0].path}`"
-          >
-            <div class="overflow-page">
+          <q-img class="page-img" :src="`${apiUrl}${item.images[0].path}`">
+            <div class="overflow">
               <div class="row">
                 <div class="col-6 q-pr-sm">
                   <q-btn

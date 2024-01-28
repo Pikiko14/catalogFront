@@ -62,12 +62,14 @@ export default defineComponent({
   setup() {
     // data
     const store = useDashboardStore();
+    const colors = ['#fba124', '#000000'];
+
     const moreAddToCarts = ref({
       labels: [],
       datasets: [
         {
           data: [],
-          backgroundColor: ['#000000', '#fba124'],
+          backgroundColor: colors,
         },
       ],
     });
@@ -77,7 +79,7 @@ export default defineComponent({
       datasets: [
         {
           data: [],
-          backgroundColor: ['#000000', '#fba124'],
+          backgroundColor: colors,
         },
       ],
     });

@@ -25,7 +25,10 @@
       to="/dashboard/catalogs?page=1&perPage=12"
       class="item-admin q-py-none q-px-sm q-mt-md"
       v-if="utils.validatePermission('list-catalogues')"
-      :class="{ active: route.path === '/dashboard/catalogs' }"
+      :class="{
+        active:
+          route.path === '/dashboard/catalogs' || route.path.includes('pages'),
+      }"
     >
       <q-item-section avatar class="q-pa-none">
         <q-icon

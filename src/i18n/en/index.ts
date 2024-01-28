@@ -171,4 +171,7 @@ export default {
   desActivate: 'disable',
   productAddBtn: 'Add product to button',
   noAvailableOnPhone: 'This feature is not available on cell phones.',
+  mostAddedToCart: 'More added to cart',
+  mostSells: 'The top sellers',
+  cityMoreVisit: 'More city visit',
 };

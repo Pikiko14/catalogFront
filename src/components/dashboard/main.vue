@@ -14,19 +14,22 @@
       class="col-12 col-sd-6 col-md-4"
       :class="{ 'q-pr-md': $q.screen.gt.sm }"
     >
-      <CtatisticsCard />
+      <CtatisticsCard
+        :title="$t('mostAddedToCart')"
+        :chartData="moreAddToCart"
+      />
     </div>
     <div
       class="col-12 col-sd-6 col-md-4"
       :class="{ 'q-px-md': $q.screen.gt.sm, 'q-mt-lg': $q.screen.lt.md }"
     >
-      <CtatisticsCard />
+      <CtatisticsCard :title="$t('mostSells')" :chartData="moreSells" />
     </div>
     <div
       class="col-12 col-sd-6 col-md-4"
       :class="{ 'q-pl-md': $q.screen.gt.sm, 'q-mt-lg': $q.screen.lt.md }"
     >
-      <CtatisticsCard />
+      <CtatisticsCard :title="$t('cityMoreVisit')" :chartData="cityMoreVisit" />
     </div>
     <div class="col-12 q-mt-xl q-pb-lg">
       <span>
@@ -45,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import CtatisticsCard from './main/statisticsCard.vue';
 import visitMapVue from './main/visitMap.vue';
 
@@ -56,7 +59,44 @@ export default defineComponent({
     visitMapVue,
   },
   setup() {
-    return {};
+    const dataMoreAddToCart = ref([]);
+    const moreAddToCart = computed(() => ({
+      labels: [],
+      datasets: [
+        {
+          data: dataMoreAddToCart.value,
+          backgroundColor: ['#000000', '#fba124'],
+        },
+      ],
+    }));
+
+    const dataMoreSell = ref([]);
+    const moreSells = computed(() => ({
+      labels: [],
+      datasets: [
+        {
+          data: dataMoreSell.value,
+          backgroundColor: ['#000000', '#fba124'],
+        },
+      ],
+    }));
+
+    const dataCityMoreVisit = ref([]);
+    const cityMoreVisit = computed(() => ({
+      labels: [],
+      datasets: [
+        {
+          data: dataCityMoreVisit.value,
+          backgroundColor: ['#000000', '#fba124'],
+        },
+      ],
+    }));
+
+    return {
+      moreSells,
+      moreAddToCart,
+      cityMoreVisit,
+    };
   },
 });
 </script>

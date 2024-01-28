@@ -172,4 +172,7 @@ export default {
   productAddBtn: 'Agregar producto al boton',
   noAvailableOnPhone:
     'Esta característica no está disponible en teléfonos celulares.',
+  mostAddedToCart: 'Mas agregados al carrito',
+  mostSells: 'Mas vendidos',
+  cityMoreVisit: 'Ciudad con mas visitantes',
 };

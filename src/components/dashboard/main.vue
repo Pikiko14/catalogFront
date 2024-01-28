@@ -16,7 +16,7 @@
     >
       <CtatisticsCard
         :title="$t('mostAddedToCart')"
-        :chartData="moreAddToCart"
+        :chartData="moreAddToCarts"
       />
     </div>
     <div
@@ -48,9 +48,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
-import CtatisticsCard from './main/statisticsCard.vue';
 import visitMapVue from './main/visitMap.vue';
+import CtatisticsCard from './main/statisticsCard.vue';
+import { useDashboardStore } from 'src/stores/dashbord';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainComponentBody',
@@ -59,27 +60,27 @@ export default defineComponent({
     visitMapVue,
   },
   setup() {
-    const dataMoreAddToCart = ref([]);
-    const moreAddToCart = computed(() => ({
+    // data
+    const store = useDashboardStore();
+    const moreAddToCarts = ref({
       labels: [],
       datasets: [
         {
-          data: dataMoreAddToCart.value,
+          data: [],
           backgroundColor: ['#000000', '#fba124'],
         },
       ],
-    }));
+    });
 
-    const dataMoreSell = ref([]);
-    const moreSells = computed(() => ({
+    const moreSells = ref({
       labels: [],
       datasets: [
         {
-          data: dataMoreSell.value,
+          data: [],
           backgroundColor: ['#000000', '#fba124'],
         },
       ],
-    }));
+    });
 
     const dataCityMoreVisit = ref([]);
     const cityMoreVisit = computed(() => ({
@@ -92,9 +93,31 @@ export default defineComponent({
       ],
     }));
 
+    // methods
+    const listMetricsData = async () => {
+      try {
+        const response = await store.listMetricsData();
+        if (response?.success) {
+          const { moreSellers, moreAddToCart } = response.data;
+          // set more add to cars data
+          moreAddToCarts.value.labels = moreAddToCart.labels;
+          moreAddToCarts.value.datasets[0].data = moreAddToCart.data;
+          // set more sellers
+          moreSells.value.labels = moreSellers.labels;
+          moreSells.value.datasets[0].data = moreSellers.data;
+        }
+      } catch (error) {}
+    };
+
+    // hook
+    onBeforeMount(async () => {
+      await listMetricsData();
+    });
+
+    // return statement
     return {
       moreSells,
-      moreAddToCart,
+      moreAddToCarts,
       cityMoreVisit,
     };
   },

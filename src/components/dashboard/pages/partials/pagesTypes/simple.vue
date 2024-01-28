@@ -147,7 +147,7 @@ export default defineComponent({
       const imageElement: any = document.getElementById('simplePageImage');
       buttons.value = buttons.value.map((button: any) => {
         button.x = (button.x / 400) * imageElement.width;
-        button.y = (button.y / 600) * imageElement.height;
+        button.y = (button.y / 590) * imageElement.height;
         button.product = button.product;
         return button;
       });

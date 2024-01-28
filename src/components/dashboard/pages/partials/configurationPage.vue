@@ -172,6 +172,7 @@ import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import { ProductInterface } from 'src/interfaces/product';
 import { useI18n } from 'vue-i18n';
 import { notification } from 'src/boot/notification';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'ConfigurationPage',
@@ -189,6 +190,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // data
+    const q = useQuasar();
     const { t } = useI18n();
     const loading = ref(false);
     const page = ref<number>(1);
@@ -267,6 +269,10 @@ export default defineComponent({
 
     const setButtons = async () => {
       try {
+        if (q.screen.lt.md) {
+          notification('negative', t('noAvailableOnPhone'), 'red');
+          return false;
+        }
         const { buttons, image } = refComponents.value;
         const index = configurationPage.images.findIndex(
           (data: ImageInterface) => data._id === image._id

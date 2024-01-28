@@ -170,4 +170,6 @@ export default {
   activate: 'Activar',
   desActivate: 'Desactivar',
   productAddBtn: 'Agregar producto al boton',
+  noAvailableOnPhone:
+    'Esta característica no está disponible en teléfonos celulares.',
 };

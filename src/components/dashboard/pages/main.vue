@@ -94,6 +94,7 @@
       transition-show="slide-up"
       transition-hide="slide-down"
       v-model="configurationPageModal"
+      @before-hide="listPagesInCatalog"
     >
       <ConfigurationPage
         :configurationPage="configurationPage"
@@ -284,6 +285,7 @@ export default defineComponent({
       totalPage,
       importModal,
       configurationPage,
+      listPagesInCatalog,
       configurationPageModal,
       closeImageConfiguration,
       openModalAddPage,

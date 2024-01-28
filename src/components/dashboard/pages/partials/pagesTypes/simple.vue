@@ -13,7 +13,7 @@
         v-for="(btn, idx) in buttons"
         :key="idx"
         icon="shopping_cart"
-        color="primary"
+        :color="btn.product ? 'secondary' : 'primary'"
         unelevated
         class="custom-button"
         :style="{ left: `${btn.x}px`, top: `${btn.y}px` }"
@@ -78,7 +78,7 @@ export default defineComponent({
     const buttonSize = 8;
 
     // computeds
-    const image = computed(() => {
+    const image: any = computed(() => {
       return props.images[0];
     });
 
@@ -125,7 +125,11 @@ export default defineComponent({
           buttonSize / 2,
           Math.min(imageElement.height - buttonSize / 2, y)
         );
-        buttons.value[draggingButton.value] = { x: adjustedX, y: adjustedY };
+        buttons.value[draggingButton.value] = {
+          x: adjustedX,
+          y: adjustedY,
+          product: buttons.value[draggingButton.value].product,
+        };
       }
     };
 
@@ -144,6 +148,7 @@ export default defineComponent({
       buttons.value = buttons.value.map((button: any) => {
         button.x = (button.x / 400) * imageElement.width;
         button.y = (button.y / 600) * imageElement.height;
+        button.product = button.product;
         return button;
       });
     };

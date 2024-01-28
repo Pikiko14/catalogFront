@@ -1,7 +1,7 @@
 <template>
   <q-card class="configuration-card">
     <!--header section-->
-    <q-bar class="bg-secondary text-white q-py-lg">
+    <q-bar class="bg-secondary text-bold text-white q-py-lg">
       <span>
         {{ $t('configurationPage') }} {{ configurationPage?.number }}
       </span>
@@ -171,6 +171,7 @@ import { useProductsStore } from 'src/stores/products';
 import TableCreWeb from 'src/components/general/tableCreWeb.vue';
 import { ProductInterface } from 'src/interfaces/product';
 import { useI18n } from 'vue-i18n';
+import { notification } from 'src/boot/notification';
 
 export default defineComponent({
   name: 'ConfigurationPage',
@@ -278,6 +279,7 @@ export default defineComponent({
             configurationPage._id
           );
           if (response?.success) {
+            notification('positive', response.message, 'primary');
             emit('close-image-configuration');
           }
         }
@@ -343,7 +345,8 @@ export default defineComponent({
       if (selectedProduct && selectedProduct.length === 0) {
         return false;
       }
-      refComponents.value.buttons[btnIdx.value].product = selectedProduct;
+      refComponents.value.buttons[btnIdx.value].product =
+        selectedProduct[0]._id;
       clearBtnIdx();
       openProductModal.value = false;
     };

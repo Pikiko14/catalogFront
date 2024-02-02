@@ -175,4 +175,5 @@ export default {
   mostAddedToCart: 'Mas agregados al carrito',
   mostSells: 'Mas vendidos',
   cityMoreVisit: 'Ciudad con mas visitantes',
+  configuration: 'Configuración',
 };

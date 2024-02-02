@@ -13,6 +13,12 @@
           icon="card_membership"
           :label="$t('subscription')"
         />
+        <q-tab
+          name="configuration"
+          class="font-12"
+          icon="build_circle"
+          :label="$t('configuration')"
+        />
       </q-tabs>
     </q-card-section>
     <q-card-section>

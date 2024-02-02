@@ -174,4 +174,5 @@ export default {
   mostAddedToCart: 'More added to cart',
   mostSells: 'The top sellers',
   cityMoreVisit: 'More city visit',
+  configuration: 'Configuration',
 };

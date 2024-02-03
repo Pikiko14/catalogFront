@@ -645,6 +645,19 @@ iframe {
   -o-transform: rotate(180deg);
 }
 
+.configuration-profile {
+  max-width: 70%;
+  margin: 0px auto;
+}
+
+.q-editor {
+  border-radius: 28px;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  -ms-border-radius: 28px;
+  -o-border-radius: 28px;
+}
+
 //*****MEDIA QUERIES*****//
 @media (max-width: 1300px) {
   .plan-card {
@@ -744,6 +757,11 @@ iframe {
     z-index: 99;
     overflow-x: auto;
   }
+
+  .configuration-profile {
+    max-width: 85%;
+    margin: 0px auto;
+  }
 }
 
 @media (max-width: 600px) {
@@ -772,5 +790,10 @@ iframe {
 
   .categories-card-form {
     width: 100%;
+  }
+
+  .configuration-profile {
+    max-width: 95%;
+    margin: 0px auto;
   }
 }

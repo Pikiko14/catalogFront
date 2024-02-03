@@ -144,7 +144,7 @@
             </q-select>
           </div>
           <div
-            class="col-12 col-md-4 col-lg-4"
+            class="col-12 col-md-6 col-lg-6"
             :class="{ 'q-pr-sm': $q.screen.gt.sm }"
           >
             <label for="">{{ $t('city') }}</label>
@@ -174,8 +174,8 @@
             </q-input>
           </div>
           <div
-            class="col-12 col-md-4 col-lg-4"
-            :class="{ 'q-px-sm': $q.screen.gt.sm }"
+            class="col-12 col-md-6 col-lg-6"
+            :class="{ 'q-pl-sm': $q.screen.gt.sm }"
           >
             <label for="">{{ $t('address') }}</label>
             <q-input
@@ -183,9 +183,9 @@
               color="primary"
               @blur="v$.address.$touch"
               lazy-rules
-              :readonly="!enableEdit"
               dense
               outlined
+              :readonly="!enableEdit"
               :error="v$.address.$error"
               placeholder="Carrera 84 # 62 A C"
               v-model="profileData.address"
@@ -203,32 +203,6 @@
               </template>
             </q-input>
           </div>
-          <div
-            class="col-12 col-md-4 col-lg-4"
-            :class="{ 'q-pl-sm': $q.screen.gt.sm }"
-          >
-            <label for="">{{ $t('typeCatalog') }}</label>
-            <q-select
-              rounded
-              color="primary"
-              :readonly="!enableEdit"
-              @blur="v$.type_slider.$touch"
-              lazy-rules
-              dense
-              emit-value
-              :options="typeSlider"
-              outlined
-              :error="v$.type_slider.$error"
-              placeholder="Medellín"
-              v-model="profileData.type_slider"
-            >
-              <template #error>
-                <span v-if="v$.type_slider.required.$invalid">
-                  {{ $t('required') }}
-                </span>
-              </template>
-            </q-select>
-          </div>
         </q-card-section>
       </q-card>
     </q-form>
@@ -239,7 +213,6 @@
 import { useVuelidate } from '@vuelidate/core';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { required, minLength, maxLength } from '@vuelidate/validators';
-import { useI18n } from 'vue-i18n';
 import { ProfileInterface } from 'src/interfaces/authInterface';
 
 export default defineComponent({
@@ -259,25 +232,13 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // data
-    const { t } = useI18n();
-    const profileData = ref<ProfileInterface>({});
+    const profileData = ref<ProfileInterface | any>({
+      brand_color: '',
+      whatsapp_message: '',
+    });
     const enableEdit = ref(false);
     const countries = ref([]);
     const countriesAll = ref([]);
-    const typeSlider = ref([
-      {
-        value: 'Simple',
-        label: t('simple'),
-      },
-      {
-        value: 'Double',
-        label: t('double'),
-      },
-      {
-        value: 'Landing',
-        label: 'Landing',
-      },
-    ]);
 
     // watch
 
@@ -304,9 +265,6 @@ export default defineComponent({
         required,
         minLength: minLength(5),
         maxLength: maxLength(90),
-      },
-      type_slider: {
-        required,
       },
     };
     const v$ = useVuelidate(brandRules, profileData as any);
@@ -373,7 +331,6 @@ export default defineComponent({
       enableEdit,
       profileData,
       countries,
-      typeSlider,
       doSaveProfile,
       filterFn,
       editProfile,

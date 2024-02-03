@@ -176,4 +176,8 @@ export default {
   mostSells: 'Mas vendidos',
   cityMoreVisit: 'Ciudad con mas visitantes',
   configuration: 'Configuración',
+  colorBrand: 'Color de la marca',
+  whatsappMessage: 'Mensaje whatsapp',
+  regexColor: 'Debe ser un color hexadecimal válido',
+  maxLengthWhatsappMessage: 'Máximo 1000 caracteres.',
 };

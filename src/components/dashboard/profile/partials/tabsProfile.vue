@@ -33,6 +33,9 @@
         <q-tab-panel name="subscriptions">
           <PlansTabs :plans="plans" />
         </q-tab-panel>
+        <q-tab-panel name="configuration">
+          <ConfigurationSet />
+        </q-tab-panel>
       </q-tab-panels>
     </q-card-section>
   </q-card>
@@ -41,8 +44,9 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
 import PlansTabs from './plans.vue';
+import { defineComponent, ref } from 'vue';
+import ConfigurationSet from './configurationSet.vue';
 import { PlanInterface } from 'src/interfaces/subscriptionInterface';
 
 export default defineComponent({
@@ -57,6 +61,7 @@ export default defineComponent({
   },
   components: {
     PlansTabs,
+    ConfigurationSet,
   },
   setup() {
     // data

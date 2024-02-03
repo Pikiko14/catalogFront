@@ -6,7 +6,7 @@ import {
   ProfileInterface,
   RegisterData,
   LoginData,
-} from 'src/interfaces/authInterface';
+} from 'src/interfaces/AuthInterface';
 import { ResponseObj } from 'src/interfaces/api';
 import { Storage } from 'src/utils/storage';
 import { User } from 'src/interfaces/userInterface';
@@ -158,6 +158,23 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
+  const soConfigurationProfile = async (params: any) => {
+    try {
+      const response: ResponseObj = (await handlerRequest.doPutRequest(
+        `profile/${params._id}/configuration/set`,
+        params,
+        true,
+        false
+      )) as ResponseObj;
+      if (response?.success) {
+        profile.value = response?.data;
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // clear subscription
   const disableSubscription = () => {
     subscription.value = {};
@@ -177,5 +194,6 @@ export const useAuthStore = defineStore('authStore', () => {
     doSaveBrandData,
     changeProfileImage,
     disableSubscription,
+    soConfigurationProfile,
   };
 });

@@ -58,4 +58,6 @@ export interface ProfileInterface {
   website?: string;
   type_slider?: string;
   user_id?: string;
+  brand_color: string;
+  whatsapp_message: string;
 }

@@ -21,7 +21,10 @@ const storage = new Storage('auth');
 export const useAuthStore = defineStore('authStore', () => {
   // data
   const now = ref<Date | string>('');
-  const profile = ref<ProfileInterface>({});
+  const profile = ref<ProfileInterface>({
+    whatsapp_message: '',
+    brand_color: '',
+  });
   const subscription = ref<SubscriptionsInterface>({});
   const token = ref<string>(storage.getItemStorage('local', 'session') || '');
   const user = ref<User>(storage.getItemStorage('local', 'user') || {});
@@ -83,7 +86,10 @@ export const useAuthStore = defineStore('authStore', () => {
         updatedAt: '',
       };
       token.value = '';
-      profile.value = {};
+      profile.value = {
+        whatsapp_message: '',
+        brand_color: '',
+      };
       subscription.value = {};
       return true;
     } catch (error) {

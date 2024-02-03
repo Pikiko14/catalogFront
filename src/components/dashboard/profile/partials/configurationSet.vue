@@ -75,11 +75,20 @@
               ],
             ]"
           />
-          <span v-if="v$.whatsapp_message.required.$invalid">
+          <span
+            class="error-message"
+            v-if="v$.whatsapp_message.required.$invalid"
+          >
             {{ $t('required') }}
           </span>
-          <span v-if="v$.whatsapp_message.maxLength.$invalid">
+          <span
+            class="error-message"
+            v-if="v$.whatsapp_message.maxLength.$invalid"
+          >
             {{ $t('maxLengthWhatsappMessage') }}
+          </span>
+          <span class="error-message" v-if="v$.whatsapp_message.regex.$invalid">
+            {{ $t('regexWhatsappMessage') }}
           </span>
         </div>
         <div class="col-12 text-center q-mt-lg">
@@ -108,6 +117,7 @@
             rounded
             v-if="enableEdit"
             unelevated
+            :loading="loading"
             no-caps
             type="submit"
             style="width: 100px"
@@ -150,7 +160,7 @@ export default defineComponent({
         label: 'Landing',
       },
     ]);
-
+    const loading = ref(false);
     const store = useAuthStore();
     const enableEdit = ref<boolean>(false);
     const profileData = ref<ProfileInterface | any>({
@@ -169,6 +179,9 @@ export default defineComponent({
       whatsapp_message: {
         required,
         minLength: minLength(1),
+        regex: regex(
+          /{{\s*order\s*}}.*{{\s*total\s*}}|{{\s*total\s*}}.*{{\s*order\s*}}/
+        ),
         maxLength: maxLength(1000),
       },
       type_slider: {
@@ -184,6 +197,11 @@ export default defineComponent({
 
     // methods
     const doSaveConfiguration = async () => {
+      v$.value.$touch();
+      if (v$.value.$invalid) {
+        return;
+      }
+      loading.value = true;
       try {
         const response = await store.soConfigurationProfile(profileData.value);
         if (response?.data) {
@@ -191,6 +209,7 @@ export default defineComponent({
         }
       } catch (error) {
       } finally {
+        loading.value = false;
         enableEdit.value = false;
       }
     };
@@ -203,6 +222,7 @@ export default defineComponent({
     // return data
     return {
       v$,
+      loading,
       enableEdit,
       typeSlider,
       profileData,

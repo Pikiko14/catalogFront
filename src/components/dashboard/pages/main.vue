@@ -275,7 +275,7 @@ export default defineComponent({
 
     const doOpenPreview = () => {
       const id = route.params.catalogId as string;
-      window.open(`${process.env.FRONT_URL}/id`);
+      window.open(`${process.env.FRONT_URL}/${id}`);
     };
 
     // life cycle

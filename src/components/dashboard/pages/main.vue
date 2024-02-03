@@ -15,6 +15,7 @@
         @show-import-modal="showImportModal"
         @open-modal="openModalAddPage"
         @delete-page="doDeletePage"
+        @open-preview="doOpenPreview"
         @do-page-configuration="doPageConfiguration"
       />
     </div>
@@ -272,6 +273,11 @@ export default defineComponent({
       doPageConfiguration({});
     };
 
+    const doOpenPreview = () => {
+      const id = route.params.catalogId as string;
+      window.open(`${process.env.FRONT_URL}/id`);
+    };
+
     // life cycle
     onBeforeMount(async () => {
       await listPagesInCatalog();
@@ -297,6 +303,7 @@ export default defineComponent({
       pushPage,
       doDeletePage,
       doPageConfiguration,
+      doOpenPreview,
     };
   },
 });

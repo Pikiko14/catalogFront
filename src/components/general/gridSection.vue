@@ -47,6 +47,27 @@
         <div
           class="col-12 col-md-3"
           :class="{ 'q-pl-md': $q.screen.gt.sm, 'q-mt-lg': $q.screen.lt.md }"
+          v-if="utils.validatePermission(permission)"
+        >
+          <q-btn
+            @click="previewCatalog"
+            rounded
+            class="full-width"
+            size="12pt"
+            style="margin-top: -5px"
+            no-caps
+            :label="$t('showCatalog')"
+            color="blue-5"
+            unelevated
+          >
+            <q-tooltip class="bg-blue-5">
+              {{ $t('showCatalog') }}
+            </q-tooltip>
+          </q-btn>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          :class="{ 'q-pl-md': $q.screen.gt.sm, 'q-mt-lg': $q.screen.lt.md }"
           v-if="utils.validatePermission(permission) && showImportButton"
         >
           <q-btn
@@ -263,6 +284,7 @@ export default defineComponent({
     'open-modal',
     'do-delete',
     'do-show',
+    'open-preview',
     'show-import-modal',
     'delete-page',
     'do-activation-catalog',
@@ -274,6 +296,7 @@ export default defineComponent({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, { emit }) {
     // data
+    const frontUrl = process.env.FRONT_URL;
     const search = ref<string>('');
     const utils = new Utils('catalogs');
     const apiUrl = process.env.API_URL;
@@ -337,6 +360,10 @@ export default defineComponent({
       emit('do-page-configuration', page);
     };
 
+    const previewCatalog = () => {
+      emit('open-preview');
+    };
+
     // life cicle
     onBeforeMount(() => {
       if (route.query.search) {
@@ -349,6 +376,8 @@ export default defineComponent({
       search,
       utils,
       apiUrl,
+      frontUrl,
+      previewCatalog,
       doSetDefaultImg,
       doSearchUser,
       openModalForm,

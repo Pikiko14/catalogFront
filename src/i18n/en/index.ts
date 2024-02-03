@@ -181,4 +181,5 @@ export default {
   maxLengthWhatsappMessage: 'The maximum length allowed is 1000',
   regexWhatsappMessage:
     'The text must contain {{ order }} and {{ total }} in order to display shopping cart information',
+  showCatalog: 'Show catalog',
 };

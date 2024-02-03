@@ -37,6 +37,16 @@
             :error="v$.brand_color.$error"
             v-model="profileData.brand_color"
           >
+            <template v-slot:prepend>
+              <div
+                :style="{
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '50px',
+                  backgroundColor: profileData.brand_color,
+                }"
+              ></div>
+            </template>
             <template v-slot:append>
               <q-icon name="colorize" class="cursor-pointer">
                 <q-popup-proxy

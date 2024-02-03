@@ -2,9 +2,12 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Request } from 'src/api/api';
-import { ProfileInterface, RegisterData } from 'src/interfaces/authInterface';
+import {
+  ProfileInterface,
+  RegisterData,
+  LoginData,
+} from 'src/interfaces/authInterface';
 import { ResponseObj } from 'src/interfaces/api';
-import { LoginData } from '../interfaces/authInterface';
 import { Storage } from 'src/utils/storage';
 import { User } from 'src/interfaces/userInterface';
 import { SubscriptionsInterface } from 'src/interfaces/subscriptionInterface';
@@ -20,7 +23,7 @@ export const useAuthStore = defineStore('authStore', () => {
   const now = ref<Date | string>('');
   const profile = ref<ProfileInterface>({});
   const subscription = ref<SubscriptionsInterface>({});
-  const token = ref<string>(storage.getCookie('session') || '');
+  const token = ref<string>(storage.getItemStorage('local', 'session') || '');
   const user = ref<User>(storage.getItemStorage('local', 'user') || {});
 
   // methods
@@ -39,7 +42,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const doLogin = async (params: LoginData) => {
     try {
-      storage.removeCookie('session');
+      storage.deleteItemStorage('local', 'session');
       storage.deleteItemStorage('local', 'user');
       const response = (await handlerRequest.doPostRequest(
         `${path}/login`,
@@ -52,7 +55,7 @@ export const useAuthStore = defineStore('authStore', () => {
         // set user in storage
         storage.saveInStorage('local', 'user', data.user);
         // save token in cookie
-        storage.setCookie(22, data.token, 'session');
+        storage.saveInStorage('local', 'session', data.token);
         // set data now
         token.value = data.token;
         user.value = data.user;
@@ -64,7 +67,7 @@ export const useAuthStore = defineStore('authStore', () => {
 
   const doLogout = () => {
     try {
-      storage.removeCookie('session');
+      storage.deleteItemStorage('local', 'session');
       storage.deleteItemStorage('local', 'user');
       user.value = {
         _id: '',

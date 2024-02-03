@@ -28,7 +28,7 @@ export default boot(async ({ app }) => {
   api.interceptors.response.use(undefined, async (error: any) => {
     if (error.response?.status === 401) {
       storage.deleteItemStorage('local', 'user');
-      storage.removeCookie('session');
+      storage.deleteItemStorage('local', 'session');
       store.doLogout();
       setTimeout(() => {
         window.location.reload();

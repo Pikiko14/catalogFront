@@ -35,7 +35,9 @@ class Request {
       );
       this.headers = {
         ...this.headers,
-        Authorization: `Bearer ${storage.getCookie('session') || ''}`,
+        Authorization: `Bearer ${
+          storage.getItemStorage('local', 'session') || ''
+        }`,
         'Is-Supervisor': isSupervisor ? 'Si' : 'No',
       };
     }
@@ -61,7 +63,9 @@ class Request {
     if (auth) {
       this.headers = {
         ...this.headers,
-        Authorization: `Bearer ${storage.getCookie('session') || ''}`,
+        Authorization: `Bearer ${
+          storage.getItemStorage('local', 'session') || ''
+        }`,
         'Is-Supervisor': isSupervisor ? 'Si' : 'No',
       };
     }
@@ -92,7 +96,9 @@ class Request {
       );
       this.headers = {
         ...this.headers,
-        Authorization: `Bearer ${storage.getCookie('session') || ''}`,
+        Authorization: `Bearer ${
+          storage.getItemStorage('local', 'session') || ''
+        }`,
         'Is-Supervisor': isSupervisor ? 'Si' : 'No',
       };
     }
@@ -125,7 +131,9 @@ class Request {
       );
       this.headers = {
         ...this.headers,
-        Authorization: `Bearer ${storage.getCookie('session') || ''}`,
+        Authorization: `Bearer ${
+          storage.getItemStorage('local', 'session') || ''
+        }`,
         'Is-Supervisor': isSupervisor ? 'Si' : 'No',
       };
     }

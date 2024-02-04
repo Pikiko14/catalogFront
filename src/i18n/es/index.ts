@@ -181,6 +181,6 @@ export default {
   regexColor: 'Debe ser un color hexadecimal válido',
   maxLengthWhatsappMessage: 'Máximo 1000 caracteres.',
   regexWhatsappMessage:
-    'El texto debe contener {{ order }} y {{ total }} para poder mostrar la información del carrito de compras',
+    'El texto debe contener {{ order }}, {{ total }} y {{ cliente }} para poder mostrar la información del carrito de compras',
   showCatalog: 'Ver catálogo',
 };

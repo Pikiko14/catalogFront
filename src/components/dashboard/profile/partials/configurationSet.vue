@@ -190,7 +190,7 @@ export default defineComponent({
         required,
         minLength: minLength(1),
         regex: regex(
-          /{{\s*order\s*}}.*{{\s*total\s*}}|{{\s*total\s*}}.*{{\s*order\s*}}/
+          /{{\s*order\s*}}.*{{\s*total\s*}}.*{{\s*cliente\s*}}|{{\s*total\s*}}.*{{\s*order\s*}}.*{{\s*cliente\s*}}/
         ),
         maxLength: maxLength(1000),
       },

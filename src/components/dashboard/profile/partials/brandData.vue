@@ -213,7 +213,7 @@
 import { useVuelidate } from '@vuelidate/core';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import { required, minLength, maxLength } from '@vuelidate/validators';
-import { ProfileInterface } from 'src/interfaces/authInterface';
+import { ProfileInterface } from 'src/interfaces/AuthInterface';
 
 export default defineComponent({
   name: 'BrandDataProfile',

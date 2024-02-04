@@ -145,7 +145,7 @@
 import { useI18n } from 'vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { useAuthStore } from 'src/stores/auth';
-import { ProfileInterface } from 'src/interfaces/authInterface';
+import { ProfileInterface } from 'src/interfaces/AuthInterface';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 import { required, minLength, maxLength, helpers } from '@vuelidate/validators';
 import { notification } from 'src/boot/notification';

@@ -226,7 +226,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { LoginData, RegisterData } from 'src/interfaces/authInterface';
+import { LoginData, RegisterData } from 'src/interfaces/AuthInterface';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from 'src/stores/auth';
 import { notification } from 'src/boot/notification';

@@ -75,7 +75,7 @@
             @blur="v$.whatsapp_message.$touch"
             v-model="profileData.whatsapp_message"
             :toolbar="[
-              ['bold', 'italic', 'underline'],
+              ['bold'],
               [
                 {
                   label: $q.lang.editor.formatting,

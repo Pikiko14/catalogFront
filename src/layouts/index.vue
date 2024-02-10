@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header class="bg-primary" v-if="route.path == '/'">
+    <q-header class="bg-primary" v-if="route.path == '/hide'">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" />
 

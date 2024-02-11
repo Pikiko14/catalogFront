@@ -15,7 +15,7 @@ export default boot(async ({ router, app }) => {
   const i18n = app.config.globalProperties.$i18n;
 
   router.beforeEach((to, from, next) => {
-    if (to && to.fullPath === '/login' && userData.value._id) {
+    if (to && to.fullPath === '/login' && userData.value._id || to && to.fullPath === '/' && userData.value._id) {
       next('/dashboard');
       return true;
     }

@@ -284,7 +284,7 @@ export default defineComponent({
       }
     };
 
-    const doSingUp = async (form: any) => {
+    const doSingUp = async () => {
       loading.value = true;
       try {
         const data = await store.doSignUp(registerData.value);

@@ -13,6 +13,7 @@
     "build": "cross-env QENV=production quasar build -m spa"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@quasar/extras": "^1.16.4",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
@@ -20,6 +21,7 @@
     "axios": "^1.2.1",
     "chart.js": "^3.9.1",
     "dotenv": "^16.3.1",
+    "googlemaps": "^1.12.0",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vee-validate": "^4.5.8",

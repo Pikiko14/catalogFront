@@ -42,7 +42,7 @@
       </span>
     </div>
     <div class="col-12">
-      <visitMapVue />
+      <visitMapVue :visits="visitsData" />
     </div>
   </section>
 </template>
@@ -51,7 +51,7 @@
 import visitMapVue from './main/visitMap.vue';
 import CtatisticsCard from './main/statisticsCard.vue';
 import { useDashboardStore } from 'src/stores/dashbord';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue';
+import { defineComponent, onBeforeMount, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainComponentBody',
@@ -84,29 +84,36 @@ export default defineComponent({
       ],
     });
 
-    const dataCityMoreVisit = ref([]);
-    const cityMoreVisit = computed(() => ({
+    const cityMoreVisit = ref({
       labels: [],
       datasets: [
         {
-          data: dataCityMoreVisit.value,
-          backgroundColor: ['#000000', '#fba124'],
+          data: [],
+          backgroundColor: colors,
         },
       ],
-    }));
+    });
+
+    const visitsData = ref([]);
 
     // methods
     const listMetricsData = async () => {
       try {
         const response = await store.listMetricsData();
         if (response?.success) {
-          const { moreSellers, moreAddToCart } = response.data;
+          const { moreSellers, moreAddToCart, visitByCity, visits } =
+            response.data;
           // set more add to cars data
           moreAddToCarts.value.labels = moreAddToCart.labels;
           moreAddToCarts.value.datasets[0].data = moreAddToCart.data;
           // set more sellers
           moreSells.value.labels = moreSellers.labels;
           moreSells.value.datasets[0].data = moreSellers.data;
+          // set cities visit
+          cityMoreVisit.value.labels = visitByCity.labels;
+          cityMoreVisit.value.datasets[0].data = visitByCity.data;
+          // set visit localities
+          visitsData.value = visits;
         }
       } catch (error) {}
     };
@@ -119,8 +126,9 @@ export default defineComponent({
     // return statement
     return {
       moreSells,
-      moreAddToCarts,
+      visitsData,
       cityMoreVisit,
+      moreAddToCarts,
     };
   },
 });

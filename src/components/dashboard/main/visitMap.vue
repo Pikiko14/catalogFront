@@ -1,6 +1,5 @@
 <template>
   <section class="full-width">
-    {{ visits }}
     <div id="map" class="map"></div>
   </section>
 </template>

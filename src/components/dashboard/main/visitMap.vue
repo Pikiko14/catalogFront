@@ -55,7 +55,7 @@ export default defineComponent({
           lat: lat,
           lng: lng,
         },
-        zoom: 6,
+        zoom: 8,
       };
       const mapDiv = document.getElementById('map');
       loader

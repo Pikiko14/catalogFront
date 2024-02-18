@@ -123,8 +123,12 @@
                       ? `${apiUrl}/${props.row.default_image.path}`
                       : props.row.image
                       ? `${apiUrl}/${props.row.image}`
-                      : props.row.cover
+                      : props.row.cover &&
+                        props.row.cover.includes('/catalogues/')
                       ? `${apiUrl}/${props.row.cover}`
+                      : props.row.cover &&
+                        !props.row.cover.includes('/catalogues/')
+                      ? props.row.cover
                       : '/images/no-image.png'
                   }`"
                   color="secondary"

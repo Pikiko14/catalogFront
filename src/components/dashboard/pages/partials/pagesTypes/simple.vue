@@ -3,7 +3,11 @@
     <article>
       <img
         @load="handleImageLoad"
-        :src="`${apiUrl}/${image.path}`"
+        :src="
+          !image.path.includes('s3.us-east-2')
+            ? `${apiUrl}/${image.path}`
+            : image.path
+        "
         alt=""
         id="simplePageImage"
       />

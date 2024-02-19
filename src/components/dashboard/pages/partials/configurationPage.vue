@@ -41,7 +41,7 @@
     <!--end edition section-->
 
     <!--Help center-->
-    <q-btn class="btn-help shadow-2" icon="help" round color="secondary">
+    <q-btn class="btn-help" icon="help" round color="secondary">
       <q-menu>
         <q-list style="min-height: 190px">
           <q-item-label header class="text-bold text-black font-10">

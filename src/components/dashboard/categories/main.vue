@@ -93,15 +93,6 @@ export default defineComponent({
         sortable: false,
       },
       {
-        name: 'totalProduct',
-        required: true,
-        label: t('totalProduct'),
-        align: 'center',
-        field: () => 0,
-        format: (val: string) => `${val}`,
-        sortable: false,
-      },
-      {
         name: 'options',
         required: true,
         label: t('options'),

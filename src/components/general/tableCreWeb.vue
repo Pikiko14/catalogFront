@@ -126,7 +126,11 @@
                             : props.row.default_image.path
                         }`
                       : props.row.image
-                      ? `${apiUrl}/${props.row.image}`
+                      ? `${
+                          !props.row.image.includes('s3.us-east-2')
+                            ? `${apiUrl}/${props.row.image}`
+                            : props.row.image
+                        }`
                       : props.row.cover &&
                         props.row.cover.includes('/catalogues/')
                       ? `${apiUrl}/${props.row.cover}`

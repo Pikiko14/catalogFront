@@ -1,7 +1,14 @@
 <template>
   <section class="galery">
     <article v-for="(media, idx) in product.medias" :key="idx">
-      <q-img :src="`${apiUrl}/${media.path}`" alt="Galery image">
+      <q-img
+        :src="
+          !media.path.includes('s3.us-east-2')
+            ? `${apiUrl}/${media.path}`
+            : media.path
+        "
+        alt="Galery image"
+      >
         <div class="overflow" @click="setDefaultImg(media)">
           <q-icon name="favorite" size="14pt" color="secondary"></q-icon>
         </div>

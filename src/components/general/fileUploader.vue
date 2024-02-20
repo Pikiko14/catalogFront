@@ -5,7 +5,15 @@
         <section v-if="filesBase64.length > 0" class="preview-drop-zone">
           <article v-for="(img, idx) in filesBase64" :key="idx">
             <q-img
-              :src="img.base64 ? img.base64 : `${apiUrl}/${img.path}`"
+              :src="
+                img.base64
+                  ? img.base64
+                  : `${
+                      !img.path.includes('s3.us-east-2')
+                        ? `${apiUrl}/${img.path}`
+                        : img.path
+                    }`
+              "
               class="drop-zone-img-preview"
               alt="drop zone img"
             >

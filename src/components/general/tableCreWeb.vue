@@ -120,7 +120,11 @@
                 <q-img
                   :src="`${
                     props.row.default_image
-                      ? `${apiUrl}/${props.row.default_image.path}`
+                      ? `${
+                          !props.row.default_image.path.includes('s3.us-east-2')
+                            ? `${apiUrl}/${props.row.default_image.path}`
+                            : props.row.default_image.path
+                        }`
                       : props.row.image
                       ? `${apiUrl}/${props.row.image}`
                       : props.row.cover &&

@@ -3,7 +3,13 @@
     <q-card-section class="text-center">
       <q-img
         :src="`${
-          imgCropper ? imgCropper : `${url}/${profile.profile_pictury}`
+          imgCropper
+            ? imgCropper
+            : profile &&
+              profile.profile_pictury &&
+              !profile.profile_pictury.includes('s3.us-east-2')
+            ? `${url}/${profile.profile_pictury}`
+            : profile.profile_pictury
         }`"
         spinner-color="secondary"
         class="profile-image"

@@ -118,7 +118,13 @@
         </q-btn>
         <q-avatar color="white" v-if="profile.user_id">
           <img
-            :src="`${url}/${profile.profile_pictury}`"
+            :src="
+              profile &&
+              profile.profile_pictury &&
+              !profile.profile_pictury.includes('s3.us-east-2')
+                ? `${url}/${profile.profile_pictury}`
+                : profile.profile_pictury
+            "
             spinner-color="secondary"
             class="profile-image"
           />

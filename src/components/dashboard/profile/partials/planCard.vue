@@ -322,7 +322,7 @@ export default defineComponent({
         loadingSubscription.value = true;
         const handlerEpayco = window.ePayco.checkout.configure({
           key: process.env.EPAYCO_PRIVATE_KEY,
-          test: true,
+          test: process.env.EPAYCO_TEST,
         });
         const data = {
           //Parametros compra (obligatorio)

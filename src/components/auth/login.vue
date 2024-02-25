@@ -10,7 +10,7 @@
       </div>
       <div class="row full-height d-flex items-center">
         <div class="col-12 col-sm-6 col-md-6 login-row">
-          <section class="full-width login-row">
+          <section class="full-width login-row" v-if="typeForm === 0">
             <q-form @submit="doLogin" class="row q-px-xl">
               <div class="col-12">
                 <p class="title">
@@ -106,7 +106,7 @@
           </section>
         </div>
         <div class="col-12 col-sm-6 col-md-6">
-          <section class="full-width register-row">
+          <section class="full-width register-row" v-if="typeForm === 1">
             <q-form ref="signUpForm" @submit="doSingUp" class="row q-px-xl">
               <div class="col-12 q-pt-md">
                 <p class="title">

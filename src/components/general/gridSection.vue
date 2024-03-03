@@ -2,7 +2,7 @@
   <section class="row">
     <div class="col-12 col-md-4 q-pl-md weight-600">
       <q-btn
-        @click="$router.go(-1)"
+        @click="$router.push({ path: '/dashboard/catalogs?page=1&perPage=12' })"
         icon="chevron_left"
         flat
         size="14pt"

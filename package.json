@@ -8,9 +8,9 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0",
     "dev": "cross-env QENV=development quasar dev",
-    "build": "cross-env QENV=production quasar build -m spa"
+    "build": "cross-env QENV=production quasar build -m spa",
+    "test": "cross-env QENV=test quasar build -m spa"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.2",

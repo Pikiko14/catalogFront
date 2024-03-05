@@ -9,6 +9,7 @@
         </div>
       </div>
       <div class="row full-height d-flex items-center">
+        <!--login section-->
         <div class="col-12 col-sm-6 col-md-6 login-row">
           <section class="full-width login-row" v-if="typeForm === 0">
             <q-form @submit="doLogin" class="row q-px-xl">
@@ -105,9 +106,21 @@
             </q-form>
           </section>
         </div>
+        <!--end login section-->
+
+        <!--register and recovery section-->
         <div class="col-12 col-sm-6 col-md-6">
-          <section class="full-width register-row" v-if="typeForm === 1">
-            <q-form ref="signUpForm" @submit="doSingUp" class="row q-px-xl">
+          <section
+            class="full-width register-row"
+            v-if="typeForm === 1 || typeForm === 2"
+          >
+            <!--register form-->
+            <q-form
+              ref="signUpForm"
+              v-if="typeForm === 1"
+              @submit="doSingUp"
+              class="row q-px-xl"
+            >
               <div class="col-12 q-pt-md">
                 <p class="title">
                   {{ $t('registerCaption') }}
@@ -217,24 +230,36 @@
                 </p>
               </div>
             </q-form>
+            <!--End register form-->
+
+            <!--recovery form-->
+            <RecoveryForm
+              @go-back="openRegisterSection(0)"
+              v-if="typeForm === 2"
+            />
+            <!--end recovery form-->
           </section>
         </div>
+        <!--end register and recovery section-->
       </div>
     </q-card-section>
   </q-card>
 </template>
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts">
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from 'src/stores/auth';
+import RecoveryForm from './components/recovery.vue';
+import { notification } from 'src/boot/notification';
 import { computed, defineComponent, ref } from 'vue';
 import { LoginData, RegisterData } from 'src/interfaces/AuthInterface';
-import { useI18n } from 'vue-i18n';
-import { useAuthStore } from 'src/stores/auth';
-import { notification } from 'src/boot/notification';
-import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'LoginComponent',
-  components: {},
+  components: {
+    RecoveryForm,
+  },
   setup() {
     // data
     const store = useAuthStore();

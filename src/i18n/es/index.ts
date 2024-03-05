@@ -8,6 +8,8 @@ export default {
   loginBtn: 'Iniciar sesión',
   more8: 'Debe tener 8 caracteres o mas.',
   recovery: '¿Olvidaste tu contraseña?',
+  recoveryText:
+    'Para iniciar el proceso de recuperacion de contraseña de tu cuenta debes ingresar tu correo electronico primero',
   registerBtn: 'Registrar',
   dontHaveAccount: '¿No posees una cuenta?',
   registerCaption: 'Estamos encantados de darte la bienvenida! Registrate ya.',
@@ -183,4 +185,7 @@ export default {
   regexWhatsappMessage:
     'El texto debe contener {{ order }}, {{ total }} y {{ cliente }} para poder mostrar la información del carrito de compras',
   showCatalog: 'Ver catálogo',
+  recoveryPassword: 'Recuperar contraseña',
+  dontContinue: '¿No quieres continuar?',
+  clickHere: 'Clic aquí',
 };

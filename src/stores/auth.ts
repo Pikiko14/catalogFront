@@ -180,6 +180,28 @@ export const useAuthStore = defineStore('authStore', () => {
     subscription.value = {};
   };
 
+  /**
+   * init recovery password
+   * @param params
+   * @returns
+   */
+  const initRecoveryPassword = async (params: any) => {
+    try {
+      const response = (await handlerRequest.doPostRequest(
+        `${path}/recovery/password`,
+        params,
+        false,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // return statement
   return {
     user,
@@ -194,6 +216,7 @@ export const useAuthStore = defineStore('authStore', () => {
     doSaveBrandData,
     changeProfileImage,
     disableSubscription,
+    initRecoveryPassword,
     soConfigurationProfile,
   };
 });

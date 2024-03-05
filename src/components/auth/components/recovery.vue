@@ -1,6 +1,6 @@
 <template>
   <div class="full-width q-px-xl">
-    <q-form class="row">
+    <q-form class="row" @submit="initRecoveryPassword">
       <div class="col-12">
         <p class="title">
           {{ $t('recoveryText') }}
@@ -54,6 +54,8 @@
 </template>
 
 <script lang="ts">
+import { notification } from 'src/boot/notification';
+import { useAuthStore } from 'src/stores/auth';
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -64,6 +66,8 @@ export default defineComponent({
     // data
     const { t } = useI18n();
     const email = ref<string>('');
+    const authStore = useAuthStore();
+    const loading = ref<boolean>(false);
 
     // custom rules
     const validateEmail = (value: string) => {
@@ -79,11 +83,28 @@ export default defineComponent({
       emit('go-back');
     };
 
+    // init recovery password
+    const initRecoveryPassword = async () => {
+      try {
+        const params = {
+          email: email.value,
+        };
+        const response = await authStore.initRecoveryPassword(params);
+        if (response?.success) {
+          notification('positive', response?.message, 'primary');
+        }
+      } catch (error) {
+      } finally {
+        loading.value = false;
+      }
+    };
+
     // return statements
     return {
       email,
       goBack,
       validateEmail,
+      initRecoveryPassword,
     };
   },
 });

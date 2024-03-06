@@ -252,7 +252,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from 'src/stores/auth';
 import RecoveryForm from './components/recovery.vue';
 import { notification } from 'src/boot/notification';
-import { computed, defineComponent, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { LoginData, RegisterData } from 'src/interfaces/AuthInterface';
 
 export default defineComponent({

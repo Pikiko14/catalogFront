@@ -41,7 +41,7 @@
         {{ $t('map') }}
       </span>
     </div>
-    <div class="col-12">
+    <div class="col-12 q-pb-lg">
       <visitMapVue :visits="visitsData" />
     </div>
   </section>

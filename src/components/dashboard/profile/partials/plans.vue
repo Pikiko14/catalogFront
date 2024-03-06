@@ -5,11 +5,10 @@
       v-for="(plan, idx) in plans"
       :key="idx"
       :class="{
-        'q-pr-lg': idx === 0 && $q.screen.gt.sm,
-        'q-px-md': idx === 1 && $q.screen.gt.sm,
-        'q-pl-lg': idx === 2 && $q.screen.gt.sm,
-        'q-mt-lg': idx > 0 && $q.screen.lt.md,
+        'q-px-lg': idx >= 0 && $q.screen.gt.sm,
+        'q-mt-lg': (idx > 0 && $q.screen.lt.md) || (idx > 2 && $q.screen.gt.sm),
       }"
+      v-show="plan.name !== 'free_plan'"
     >
       <PlanCard :plan="plan" />
     </div>

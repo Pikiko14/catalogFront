@@ -248,11 +248,11 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts">
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from 'src/stores/auth';
 import RecoveryForm from './components/recovery.vue';
 import { notification } from 'src/boot/notification';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, onBeforeMount, onMounted, ref } from 'vue';
 import { LoginData, RegisterData } from 'src/interfaces/AuthInterface';
 
 export default defineComponent({
@@ -262,6 +262,7 @@ export default defineComponent({
   },
   setup() {
     // data
+    const route = useRoute();
     const store = useAuthStore();
     const bgColor = ref('bg-pink-5');
     const passwordType = ref<boolean>(false);
@@ -379,6 +380,13 @@ export default defineComponent({
       }
       return true;
     };
+
+    // life cycle
+    onMounted(() => {
+      if (route.query.token && route.query.recovery) {
+        openRegisterSection(2);
+      }
+    });
 
     return {
       bgColor,

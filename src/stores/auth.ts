@@ -202,6 +202,28 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
+  /**
+   * init recovery password
+   * @param params
+   * @returns
+   */
+  const doChangePassword = async (params: any) => {
+    try {
+      const response = (await handlerRequest.doPostRequest(
+        `${path}/change/password`,
+        params,
+        false,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // return statement
   return {
     user,
@@ -214,6 +236,7 @@ export const useAuthStore = defineStore('authStore', () => {
     doLogout,
     listProfile,
     doSaveBrandData,
+    doChangePassword,
     changeProfileImage,
     disableSubscription,
     initRecoveryPassword,

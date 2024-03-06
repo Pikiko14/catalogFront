@@ -187,4 +187,7 @@ export default {
   recoveryPassword: 'Recovery password',
   dontContinue: '¿Would you like to continue?',
   clickHere: 'Clic here',
+  enterYourNewPassword:
+    'Please provide your new passwords in the fields below. Ensure you choose a secure and unique password to safeguard your account.',
+  dontMatch: 'Password don´t match',
 };

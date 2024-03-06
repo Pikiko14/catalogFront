@@ -1,5 +1,5 @@
 <template>
-  <q-card class="login-card round-0 shadow-10">
+  <q-card class="login-card round-8 shadow-10">
     <q-card-section class="full-height q-pa-none">
       <input type="checkbox" id="flip" />
       <div class="cover">

@@ -679,6 +679,11 @@ iframe {
   -o-border-radius: 10px;
 }
 
+.banner-image {
+  height: 250px;
+  width: 100%;
+}
+
 //*****MEDIA QUERIES*****//
 @media (max-width: 1300px) {
   .plan-card {

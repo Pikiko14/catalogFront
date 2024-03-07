@@ -96,6 +96,9 @@
               </span>
             </template>
           </q-file>
+          <div class="full-width q-pb-lg">
+            <img class="banner-image" :src="profile.landing_banner" />
+          </div>
         </div>
         <div class="col-12">
           <label for="">{{ $t('whatsappMessage') }}</label>
@@ -287,6 +290,7 @@ export default defineComponent({
       enableEdit,
       typeSlider,
       profileData,
+      profile,
       doSaveConfiguration,
     };
   },

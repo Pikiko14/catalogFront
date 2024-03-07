@@ -62,4 +62,5 @@ export interface ProfileInterface {
   whatsapp_message: string;
   file?: string;
   _id?: string;
+  landing_banner?: string;
 }

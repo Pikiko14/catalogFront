@@ -60,4 +60,6 @@ export interface ProfileInterface {
   user_id?: string;
   brand_color: string;
   whatsapp_message: string;
+  file?: string;
+  _id?: string;
 }

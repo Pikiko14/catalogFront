@@ -68,6 +68,35 @@
             </template>
           </q-input>
         </div>
+        <div class="col-12" v-if="profileData.type_slider === 'Landing'">
+          <label for="">{{ $t('insertLandingBanner') }}</label>
+          <q-file
+            rounded
+            dense
+            outlined
+            lazy-rules
+            ref="fileInput"
+            color="primary"
+            :readonly="!enableEdit"
+            @blur="v$.file.$touch"
+            :error="v$.file.$error"
+            accept=".png, .jpg, .jpeg, .webp, image"
+            v-model="profileData.file"
+          >
+            <template v-slot:append>
+              <q-icon
+                name="cloud_upload"
+                color="primary"
+                class="cursor-pointer"
+              />
+            </template>
+            <template #error>
+              <span v-if="v$.file.requiredIf.$invalid">
+                {{ $t('required') }}
+              </span>
+            </template>
+          </q-file>
+        </div>
         <div class="col-12">
           <label for="">{{ $t('whatsappMessage') }}</label>
           <q-editor
@@ -143,18 +172,26 @@
 
 <script lang="ts">
 import { useI18n } from 'vue-i18n';
+import { Utils } from 'src/utils/utils';
 import { useVuelidate } from '@vuelidate/core';
 import { useAuthStore } from 'src/stores/auth';
+import { notification } from 'src/boot/notification';
 import { ProfileInterface } from 'src/interfaces/AuthInterface';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
-import { required, minLength, maxLength, helpers } from '@vuelidate/validators';
-import { notification } from 'src/boot/notification';
+import {
+  required,
+  minLength,
+  maxLength,
+  helpers,
+  requiredIf,
+} from '@vuelidate/validators';
 const { regex } = helpers;
 
 export default defineComponent({
   name: 'ConfigurationProfileComponenet',
   setup() {
     // data
+    const utils = new Utils('profile');
     const { t } = useI18n();
     const typeSlider = ref([
       {
@@ -176,6 +213,7 @@ export default defineComponent({
     const profileData = ref<ProfileInterface | any>({
       brand_color: '',
       whatsapp_message: '',
+      file: '',
     });
 
     // rules
@@ -197,6 +235,11 @@ export default defineComponent({
       type_slider: {
         required,
       },
+      file: {
+        requiredIf: requiredIf(() => {
+          return profileData.value.type_slider === 'Landing';
+        }),
+      },
     };
     const v$ = useVuelidate(brandRules, profileData as any);
 
@@ -213,7 +256,15 @@ export default defineComponent({
       }
       loading.value = true;
       try {
-        const response = await store.soConfigurationProfile(profileData.value);
+        const params = utils.transformObjectInFormData(
+          profileData.value,
+          false,
+          null
+        );
+        const response = await store.soConfigurationProfile(
+          params,
+          profile.value._id as string
+        );
         if (response?.data) {
           notification('positive', response?.message, 'primary');
         }

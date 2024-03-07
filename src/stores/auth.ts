@@ -158,13 +158,13 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   };
 
-  const soConfigurationProfile = async (params: any) => {
+  const soConfigurationProfile = async (params: any, profileId: string) => {
     try {
       const response: ResponseObj = (await handlerRequest.doPutRequest(
-        `profile/${params._id}/configuration/set`,
+        `profile/${profileId}/configuration/set`,
         params,
         true,
-        false
+        true
       )) as ResponseObj;
       if (response?.success) {
         profile.value = response?.data;

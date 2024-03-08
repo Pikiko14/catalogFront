@@ -240,7 +240,10 @@ export default defineComponent({
       },
       file: {
         requiredIf: requiredIf(() => {
-          return profileData.value.type_slider === 'Landing';
+          return (
+            profileData.value.type_slider === 'Landing' &&
+            !profile.value.landing_banner
+          );
         }),
       },
     };

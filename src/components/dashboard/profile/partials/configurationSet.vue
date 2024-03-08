@@ -133,6 +133,63 @@
             {{ $t('regexWhatsappMessage') }}
           </span>
         </div>
+
+        <!--rrss section-->
+        <div
+          class="col-12 q-mt-md font-14"
+          v-if="profileData.type_slider === 'Landing'"
+        >
+          <label class="text-bold">
+            {{ $t('rrSsLinks') }}
+          </label>
+          <q-btn
+            @click="pushRrSsToArr"
+            icon="add"
+            class="float-right"
+            flat
+            dense
+            rounded
+            :disabled="!enableEdit"
+          >
+            <q-tooltip class="bg-primary">
+              {{ $t('userAddBtn') }}
+            </q-tooltip>
+          </q-btn>
+        </div>
+        <div
+          class="col-12 font-14 row"
+          v-for="(rS, idx) in rrSs"
+          :key="idx"
+          v-show="profileData.type_slider === 'Landing'"
+        >
+          <div class="col-12 col-md-6">
+            <label for="">{{ $t('name') }}</label>
+            <q-select
+              rounded
+              color="primary"
+              lazy-rules
+              dense
+              @blur="v$.type_slider.$touch"
+              :error="v$.type_slider.$error"
+              :readonly="!enableEdit"
+              emit-value
+              :options="rrSsOptions"
+              outlined
+              placeholder="Medellín"
+              v-model="profileData.type_slider"
+            >
+              <template #error>
+                <span v-if="v$.type_slider.required.$invalid">
+                  {{ $t('required') }}
+                </span>
+              </template>
+            </q-select>
+          </div>
+          <div class="col-12 col-md-6">a</div>
+        </div>
+        <!--End rrss section-->
+
+        <!--send buttons-->
         <div class="col-12 text-center q-mt-lg">
           <q-btn
             color="secondary"
@@ -218,6 +275,25 @@ export default defineComponent({
       whatsapp_message: '',
       file: '',
     });
+    const rrSsOptions = [
+      {
+        label: 'Facebook',
+        icon: 'fab fa-facebook',
+      },
+      {
+        label: 'Facebook',
+        icon: 'fab fa-twitter',
+      },
+      {
+        label: 'Facebook',
+        icon: 'fab fa-linkedin',
+      },
+      {
+        label: 'Facebook',
+        icon: 'fab fa-instagram',
+      },
+    ];
+    const rrSs = ref<any[]>([]);
 
     // rules
     const brandRules = {
@@ -281,6 +357,17 @@ export default defineComponent({
       }
     };
 
+    const pushRrSsToArr = () => {
+      if (rrSs.value && rrSs.value.length > 3) {
+        return false;
+      }
+      const data = {
+        type: '',
+        url: '',
+      };
+      rrSs.value.push(data);
+    };
+
     // life cycle
     onBeforeMount(async () => {
       profileData.value = JSON.parse(JSON.stringify(profile.value));
@@ -289,11 +376,14 @@ export default defineComponent({
     // return data
     return {
       v$,
+      rrSs,
+      profile,
       loading,
       enableEdit,
       typeSlider,
       profileData,
-      profile,
+      rrSsOptions,
+      pushRrSsToArr,
       doSaveConfiguration,
     };
   },

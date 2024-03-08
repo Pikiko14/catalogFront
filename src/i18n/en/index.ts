@@ -191,4 +191,5 @@ export default {
     'Please provide your new passwords in the fields below. Ensure you choose a secure and unique password to safeguard your account.',
   dontMatch: 'Password don´t match',
   insertLandingBanner: 'Select banner landing',
+  rrSsLinks: 'Social Network',
 };

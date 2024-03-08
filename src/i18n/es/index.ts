@@ -192,4 +192,5 @@ export default {
     'Te pedimos que ingreses tus nuevas contraseñas en los campos a continuación. Asegúrate de elegir una contraseña segura y única para proteger tu cuenta.',
   dontMatch: 'No coinciden las contraseñas',
   insertLandingBanner: 'Selecciona el banner de la landing',
+  rrSsLinks: 'Redes sociales',
 };

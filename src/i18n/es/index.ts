@@ -193,4 +193,5 @@ export default {
   dontMatch: 'No coinciden las contraseñas',
   insertLandingBanner: 'Selecciona el banner de la landing',
   rrSsLinks: 'Redes sociales',
+  url: 'Debe ser una url',
 };

@@ -192,4 +192,5 @@ export default {
   dontMatch: 'Password don´t match',
   insertLandingBanner: 'Select banner landing',
   rrSsLinks: 'Social Network',
+  url: 'Must be a url',
 };

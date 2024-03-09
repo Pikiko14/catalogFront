@@ -162,7 +162,7 @@
           :key="idx"
           v-show="profileData.type_slider === 'Landing'"
         >
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-5" :class="{ 'q-pr-md': $q.screen.gt.sm }">
             <label for="">{{ $t('name') }}</label>
             <q-select
               rounded
@@ -175,8 +175,10 @@
               emit-value
               :options="rrSsOptions"
               outlined
+              map-options
               placeholder="Medellín"
-              v-model="profileData.type_slider"
+              v-model="rS.type"
+              :rules="[(vall) => !!vall || $t('required')]"
             >
               <template #error>
                 <span v-if="v$.type_slider.required.$invalid">
@@ -185,7 +187,43 @@
               </template>
             </q-select>
           </div>
-          <div class="col-12 col-md-6">a</div>
+          <div class="col-12 col-md-5" :class="{ 'q-pl-md': $q.screen.gt.sm }">
+            <label for="">{{ $t('Url') }}</label>
+            <q-input
+              outlined
+              rounded
+              :readonly="!enableEdit"
+              dense
+              lazy-rules
+              @blur="v$.brand_color.$touch"
+              :error="v$.brand_color.$error"
+              v-model="rS.url"
+              :rules="[
+                (vall) => !!vall || $t('required'),
+                (vall) =>
+                  /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(vall) ||
+                  $t('url'),
+              ]"
+            >
+            </q-input>
+          </div>
+          <div class="col-1 q-pt-lg q-mt-xs">
+            <center>
+              <q-btn
+                flat
+                dense
+                rounded
+                color="red"
+                icon="delete"
+                :disabled="!enableEdit"
+                @click="deleteRrSs(idx)"
+              >
+                <q-tooltip class="bg-red">
+                  {{ $t('delete') }}
+                </q-tooltip>
+              </q-btn>
+            </center>
+          </div>
         </div>
         <!--End rrss section-->
 
@@ -278,18 +316,17 @@ export default defineComponent({
     const rrSsOptions = [
       {
         label: 'Facebook',
+        value: 'Facebook',
         icon: 'fab fa-facebook',
       },
       {
-        label: 'Facebook',
+        label: 'Twitter',
+        value: 'Twitter',
         icon: 'fab fa-twitter',
       },
       {
-        label: 'Facebook',
-        icon: 'fab fa-linkedin',
-      },
-      {
-        label: 'Facebook',
+        label: 'Instagram',
+        value: 'Instagram',
         icon: 'fab fa-instagram',
       },
     ];
@@ -336,6 +373,9 @@ export default defineComponent({
       if (v$.value.$invalid) {
         return;
       }
+      if (rrSs.value.length > 0) {
+        profileData.value.rrss_link = rrSs.value;
+      }
       loading.value = true;
       try {
         const params = utils.transformObjectInFormData(
@@ -358,7 +398,7 @@ export default defineComponent({
     };
 
     const pushRrSsToArr = () => {
-      if (rrSs.value && rrSs.value.length > 3) {
+      if (rrSs.value && rrSs.value.length > 2) {
         return false;
       }
       const data = {
@@ -368,9 +408,16 @@ export default defineComponent({
       rrSs.value.push(data);
     };
 
+    const deleteRrSs = (idx: number) => {
+      rrSs.value.splice(idx, 1);
+    };
+
     // life cycle
     onBeforeMount(async () => {
       profileData.value = JSON.parse(JSON.stringify(profile.value));
+      if (profileData.value.rrss_link.length > 0) {
+        rrSs.value = profileData.value.rrss_link;
+      }
     });
 
     // return data
@@ -379,6 +426,7 @@ export default defineComponent({
       rrSs,
       profile,
       loading,
+      deleteRrSs,
       enableEdit,
       typeSlider,
       profileData,

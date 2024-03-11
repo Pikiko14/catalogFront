@@ -78,6 +78,7 @@
         :loading="loadingSubscription"
         :label="$t('subscriptionBtn')"
         color="secondary"
+        id="planPaymentButton"
         v-if="
           !subscription ||
           subscription.plan_id !== plan._id ||

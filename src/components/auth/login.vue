@@ -299,8 +299,13 @@ export default defineComponent({
             username: '',
             password: '',
           };
+          let query: any = {};
+          if (route.query.register && route.query.plan) {
+            query.plan = route.query.plan;
+          }
           router.push({
-            name: 'dasboard',
+            path: '/dashboard',
+            query: query,
           });
         }
       } catch (error) {
@@ -316,6 +321,14 @@ export default defineComponent({
         const data = await store.doSignUp(registerData.value);
         if (data?.success) {
           notification('positive', data ? data.message : '', 'primary');
+          if (route.query.register && route.query.plan) {
+            const username = registerData.value.username;
+            const password = registerData.value.password;
+            loginData.value = {
+              username,
+              password,
+            };
+          }
           registerData.value = {
             username: '',
             password: '',
@@ -328,6 +341,9 @@ export default defineComponent({
           }, 500);
           const check: any = document.getElementById('flip');
           check.checked = false;
+          if (route.query.register && route.query.plan) {
+            await doLogin();
+          }
         }
       } catch (error) {
         console.log(error);
@@ -382,9 +398,12 @@ export default defineComponent({
     };
 
     // life cycle
-    onMounted(() => {
+    onMounted(async () => {
       if (route.query.token && route.query.recovery) {
         openRegisterSection(2);
+      }
+      if (route.query.register && route.query.register) {
+        openRegisterSection(1);
       }
     });
 
